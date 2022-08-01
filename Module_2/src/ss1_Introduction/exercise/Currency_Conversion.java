@@ -10,8 +10,5 @@ public class Currency_Conversion {
         final double exchangeRate = 23000;
        double vnd = usd * exchangeRate;
         System.out.println("Số tiền khi chuyển thành VNĐ là: " +vnd);
-
-
-
     }
 }
