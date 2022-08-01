@@ -1,8 +1,8 @@
-package ss1.bai_tap;
+package ss1_Introduction.exercise;
 
 import java.util.Scanner;
 
-public class hienThiLoiChao {
+public class Hello {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your name: ");
