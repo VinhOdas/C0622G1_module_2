@@ -2,7 +2,7 @@ package ss1_Introduction.exercise;
 
 import java.util.Scanner;
 
-public class Read_Numbers_Into_Words {
+public class ReadNumbersIntoWords {
     public static void main(String[] args) {
         int number;
         Scanner sc = new Scanner(System.in);
