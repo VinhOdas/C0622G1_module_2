@@ -34,8 +34,6 @@ public class DisplayGeometry {
             }
             System.out.println("");
         }
-
-        // bottom-left
         for (int i = 1; i <= heightTriangle; i++) {
             for (int j = 1; j <= i; j++) {
                 System.out.print("*");
