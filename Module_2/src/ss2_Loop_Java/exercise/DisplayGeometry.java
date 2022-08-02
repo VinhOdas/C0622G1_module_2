@@ -7,7 +7,6 @@ public class DisplayGeometry {
         menu();
 
     }
-
     static void printRectangular() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Chiều rộng: ");
@@ -22,12 +21,10 @@ public class DisplayGeometry {
             System.out.println("");
         }
     }
-
     static void printSquareTriangle() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Chiều cao hình tam giác: ");
         int heightTriangle = sc.nextInt();
-        // top left
         for (int i = heightTriangle; i >= 1; i--) {
             for (int j = 1; j <= i; j++) {
                 System.out.print("*");
