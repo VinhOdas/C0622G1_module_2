@@ -10,6 +10,7 @@ public class RemoveElementFromArray {
         System.out.println("Nhập phần tử  mà bạn muốn tìm");
         int element;
         element = sc.nextInt();
+        int check ;
 
         for (int i = 0; i < arr.length; i++) {
             if (element == arr[i]) {
@@ -24,6 +25,7 @@ public class RemoveElementFromArray {
                 i--;
             }
         }
+
         System.out.println(Arrays.toString(arr));
     }
 }
