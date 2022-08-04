@@ -4,13 +4,20 @@ public class ClassFan {
     final int slow = 1;
     final int medium = 2;
     final int hard = 3;
-    private int speed = slow;
+    private int speed ;
     private boolean on = false;
     private double radius = 5;
     private String color = "blue";
 
     public ClassFan() {
 
+    }
+
+    public ClassFan(int speed, boolean on, double radius, String color) {
+        this.speed = speed;
+        this.on = on;
+        this.radius = radius;
+        this.color = color;
     }
 
     public int getSpeed() {
@@ -42,11 +49,12 @@ public class ClassFan {
 
     @Override
     public String toString() {
-        if (this.on == true){
-            return String.format("speed: "+this.speed+" color: "+this.color + "radius: " + this.radius + "fan is on" );
+        if (this.on){
+            return String.format("Speed: %d Color: %s Radius: %f fan is on",this.speed, this.color, this.radius );
         }
         else {
-            return String.format("speed: "+this.speed+" color: "+this.color + "radius: " + this.radius + "fan is off" );
+            return String.format("Speed: %d Color: %s Radius: %f fan is off",this.speed, this.color, this.radius );
+
         }
     }
 }
