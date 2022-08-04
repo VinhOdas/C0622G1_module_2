@@ -39,7 +39,14 @@ public class ClassFan {
     public void  setColor(String color){
         this.color = color;
     }
-    public String toString(){
 
+    @Override
+    public String toString() {
+        if (this.on == true){
+            return String.format("speed: "+this.speed+" color: "+this.color + "radius: " + this.radius + "fan is on" );
+        }
+        else {
+            return String.format("speed: "+this.speed+" color: "+this.color + "radius: " + this.radius + "fan is off" );
+        }
     }
 }
