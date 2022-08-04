@@ -2,7 +2,7 @@ package ss4_Class_And_Object.exercise.class_Fan;
 
 public class MainController {
     public static void main(String[] args) {
-        ClassFan classFan1 = new ClassFan(3, true,10, "red");
+        ClassFan classFan1 = new ClassFan(1, true,10, "red");
 //        classFan1.setSpeed(3);
 //        classFan1.setRadius(10);
 //        classFan1.setColor("yello");
@@ -15,7 +15,6 @@ public class MainController {
 //        classFan2.setColor("blue");
 //        classFan2.setOn(false);
         System.out.println(classFan1.toString());
-
         System.out.println(classFan2.toString());
     }
 
