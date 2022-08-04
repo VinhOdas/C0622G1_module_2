@@ -11,11 +11,11 @@ public class FindMinimumValueOfArray {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập vào số lượng phần tử của mảng");
-        int size = sc.nextInt();
+        int size = Integer.parseInt(sc.nextLine());
         int[] arr = new int[size];
         for (int i = 0; i < size; i++) {
             System.out.println("Nhập giá trị phần tử trong mảng");
-            arr[i] = sc.nextInt();
+            arr[i] = Integer.parseInt(sc.nextLine());
         }
         System.out.println(Arrays.toString(arr));
         int i ;

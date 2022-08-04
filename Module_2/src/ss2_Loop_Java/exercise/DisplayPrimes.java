@@ -6,7 +6,7 @@ public class DisplayPrimes {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập vào numbers là số lượng của sô nguyên tố cần hiển thị");
-        int numbers = sc.nextInt();
+        int numbers = Integer.parseInt(sc.nextLine());
         int count = 1;
         int i = 2;
         while (count <= numbers) {

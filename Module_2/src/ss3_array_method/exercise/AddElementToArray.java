@@ -9,11 +9,11 @@ public class AddElementToArray {
         int[] arr = {5, 2, 3, 4, 5, 6, 5, 8, 5, 0, 5, 5};
         System.out.println("Nhập phần tử  mà bạn muốn thêm");
         int element;
-        element = sc.nextInt();
+        element = Integer.parseInt(sc.nextLine());
         int index;
         do {
             System.out.println("Nhập index");
-            index = sc.nextInt();
+            index = Integer.parseInt(sc.nextLine());
             if (index <= -1 || index >= arr.length) {
                 System.out.println("Không được phép thêm vào:");
             }

@@ -9,15 +9,15 @@ public class FindMaxInArray {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập số dòng");
-        int size = sc.nextInt();
+        int size = Integer.parseInt(sc.nextLine());
         System.out.println("Nhập số cột");
-        int size1 = sc.nextInt();
+        int size1 = Integer.parseInt(sc.nextLine());
         int[][] arr = new int[size][size1];
         int i,j;
         for ( i = 0; i < size; i++) {
             for ( j = 0; j <size1 ; j++) {
                 System.out.println("Nhập giá trị phần tử trong mảng");
-                arr[i][j] = sc.nextInt();
+                arr[i][j] = Integer.parseInt(sc.nextLine());
             }
         }
         System.out.println(Arrays.deepToString(arr));

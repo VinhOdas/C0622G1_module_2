@@ -10,12 +10,12 @@ public class CountCharactersInString {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập ký tự cần tìm");
         char characters = sc.nextLine().charAt(0);
-        int dem = 0;
+        int count = 0;
         for (int i = 0; i <str.length() ; i++) {
             if (str.charAt(i)==characters){
-                dem ++;
+                count ++;
             }
         }
-        System.out.println(dem);
+        System.out.println(count);
     }
 }

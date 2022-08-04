@@ -9,7 +9,7 @@ public class RemoveElementFromArray {
         int[] arr = {5, 2, 3, 4, 5, 6, 5, 8, 5, 0, 5, 5};
         System.out.println("Nhập phần tử  mà bạn muốn tìm");
         int element;
-        element = sc.nextInt();
+        element = Integer.parseInt(sc.nextLine());
         int check ;
 
         for (int i = 0; i < arr.length; i++) {

@@ -10,9 +10,9 @@ public class DisplayGeometry {
     static void printRectangular() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Chiều rộng: ");
-        int width = sc.nextInt();
+        int width = Integer.parseInt(sc.nextLine());
         System.out.print("\nChiều cao: ");
-        int height = sc.nextInt();
+        int height = Integer.parseInt(sc.nextLine());
 
         for (int i = 1; i <= height; i++) {
             for (int j = 1; j <= width; j++) {
@@ -24,7 +24,7 @@ public class DisplayGeometry {
     static void printSquareTriangle() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Chiều cao hình tam giác: ");
-        int heightTriangle = sc.nextInt();
+        int heightTriangle = Integer.parseInt(sc.nextLine());
         for (int i = heightTriangle; i >= 1; i--) {
             for (int j = 1; j <= i; j++) {
                 System.out.print("*");
@@ -43,7 +43,7 @@ public class DisplayGeometry {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Chiều cao hình tam giác:");
-        int heightTriangle = sc.nextInt();
+        int heightTriangle = Integer.parseInt(sc.nextLine());
 
         for (int i = 1; i < heightTriangle; i++) {
             for (int j = 1; j <= i * -1 + heightTriangle; j++) {
@@ -67,7 +67,7 @@ public class DisplayGeometry {
             System.out.println("2. In hình tam giác vuông");
             System.out.println("3. In tam giác cân");
             System.out.println("4. Exit");
-            int chose = sc.nextInt();
+            int chose = Integer.parseInt(sc.nextLine());
             switch (chose) {
                 case 1:
                     printRectangular();
