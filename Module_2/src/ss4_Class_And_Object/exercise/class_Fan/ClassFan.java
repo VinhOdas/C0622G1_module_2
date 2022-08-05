@@ -53,8 +53,7 @@ public class ClassFan {
             return String.format("Speed: %d Color: %s Radius: %f fan is on",this.speed, this.color, this.radius );
         }
         else {
-            return String.format("Speed: %d Color: %s Radius: %f fan is off",this.speed=0, this.color, this.radius );
-
+            return String.format(" Color: %s Radius: %f fan is off", this.color, this.radius );
         }
     }
 }
