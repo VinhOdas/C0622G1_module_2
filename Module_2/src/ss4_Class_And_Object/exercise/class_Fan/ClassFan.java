@@ -4,7 +4,7 @@ public class ClassFan {
     final int slow = 1;
     final int medium = 2;
     final int hard = 3;
-    private int speed ;
+    private int speed = slow;
     private boolean on = false;
     private double radius = 5;
     private String color = "blue";
@@ -20,9 +20,14 @@ public class ClassFan {
         this.color = color;
     }
 
-    public int getSpeed() {
-        return this.speed;
+    public void setSpeed(int speed) {
+        if (speed < 0 || speed > 10) {
+            System.out.println("Yêu cầu nhập lại");
+        } else {
+            this.speed = speed;
+        }
     }
+
 
     public boolean getOn() {
         return this.on;
@@ -31,29 +36,43 @@ public class ClassFan {
     public double getRadius() {
         return this.radius;
     }
-    public String getColor(){
+
+    public String getColor() {
         return this.color;
     }
-     public void setSpeed(int speed){
-        this.speed = speed;
+
+    public String getSpeed() {
+        switch (this.speed) {
+            case 1:
+                return "slow";
+            case 2:
+                return "medium";
+            case 3:
+                return "hard";
+            default:
+                return "Đéo";
+        }
+
     }
-    public void  setOn(boolean on){
+
+    public void setOn(boolean on) {
         this.on = on;
     }
-    public void setRadius(double radius){
+
+    public void setRadius(double radius) {
         this.radius = radius;
     }
-    public void  setColor(String color){
+
+    public void setColor(String color) {
         this.color = color;
     }
 
     @Override
     public String toString() {
-        if (this.on){
-            return String.format("Speed: %d Color: %s Radius: %f fan is on",this.speed, this.color, this.radius );
-        }
-        else {
-            return String.format(" Color: %s Radius: %f fan is off", this.color, this.radius );
+        if (this.on) {
+            return String.format("Speed: %s Color: %s Radius: %f fan is on", getSpeed(), getColor(), getRadius());
+        } else {
+            return String.format(" Color: %s Radius: %f fan is off", getColor(), getRadius());
         }
     }
 }

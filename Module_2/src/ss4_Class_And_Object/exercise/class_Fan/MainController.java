@@ -2,12 +2,12 @@ package ss4_Class_And_Object.exercise.class_Fan;
 
 public class MainController {
     public static void main(String[] args) {
-        ClassFan classFan1 = new ClassFan(1, true,10, "red");
+        ClassFan classFan1 = new ClassFan(2, true,10, "red");
 
         ClassFan classFan2 = new ClassFan(3, false,10, "black");
 
-        System.out.println(classFan1.toString());
-        System.out.println(classFan2.toString());
+        System.out.println(classFan1);
+        System.out.println(classFan2);
     }
 
 }
