@@ -29,6 +29,7 @@ public class ClassFan {
     }
 
 
+
     public boolean getOn() {
         return this.on;
     }
