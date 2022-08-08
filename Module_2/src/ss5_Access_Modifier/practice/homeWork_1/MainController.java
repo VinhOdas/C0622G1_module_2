@@ -8,6 +8,6 @@ public class MainController {
         System.out.println("Nhập vào số lượng thí sinh");
         int number = Integer.parseInt(sc.nextLine());
         Candidate candidate = new Candidate();
-        candidate.
+
     }
 }
