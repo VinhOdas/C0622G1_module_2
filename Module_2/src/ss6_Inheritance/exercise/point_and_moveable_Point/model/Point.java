@@ -1,13 +1,13 @@
-package ss6_Inheritance.exercise.point.model;
+package ss6_Inheritance.exercise.point_and_moveable_Point.model;
 
-public class Point2D {
+public class Point {
     private float x = 0.0f;
     private float y = 0.0f;
 
-    public Point2D() {
+    public Point() {
     }
 
-    public Point2D(float x, float y) {
+    public Point(float x, float y) {
         this.x = x;
         this.y = y;
     }

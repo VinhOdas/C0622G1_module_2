@@ -30,7 +30,7 @@ public class Point3D extends Point2D {
 
     @Override
     public String toString() {
-        return String.format("x: %f", getX(), "y: %f", getY(), "z: %f", getZ(), "%s", super.toString());
+        return String.format( "%sz: %f\n", super.toString(), getZ() );
     }
 
 }
