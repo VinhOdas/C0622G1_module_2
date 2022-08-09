@@ -1,6 +1,5 @@
 package ss7_abstract_class_interface.exercise.interface_resizeable.model;
 
-import ss6_Inheritance.practice.geometric_object.model.Shape;
 
 public class Circle extends Shape  {
     private double radius = 1.0;
@@ -30,5 +29,8 @@ public class Circle extends Shape  {
         return String.format("A Circle with radius= %d", getRadius(),  "which is a subclass of %s",super.toString());
     }
 
-
+    @Override
+    public void resize(double percent) {
+        this.radius = radius * (1 + (percent/100));
+    }
 }
