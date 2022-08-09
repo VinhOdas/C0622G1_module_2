@@ -5,9 +5,15 @@ public class Square extends Rectangle  {
     public Square(double side) {
         super(side,side);
     }
+
     public Square(){
         super(1.0,1.0);
     }
+
+    public Square(double width, double height, String color, boolean filled) {
+        super(width, height, color, filled);
+    }
+
     public double getSide(){
         return getWidth();
     }
