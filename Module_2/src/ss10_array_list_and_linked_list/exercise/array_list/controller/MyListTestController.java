@@ -39,9 +39,13 @@ public class MyListTestController {
             Student student4 = new Student(6, "trường");
             Student student5 = new Student(7, "danh");
             MyList<Student> studentMyList = new MyList<>();
+            studentMyList.add(student1);
+            studentMyList.add(student2);
+            studentMyList.add(student3);
+            studentMyList.add(student4);
+            studentMyList.add(student5);
 
-
-
+            System.out.println(student1);
 
         }
     }

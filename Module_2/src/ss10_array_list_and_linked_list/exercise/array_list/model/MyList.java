@@ -23,14 +23,14 @@ public class MyList<E> {
         return this.size;
     }
 
-    private void clear() {
+    public void clear() {
         size = 0;
         for (int i = 0; i < elements.length; i++) {
             elements[i] = null;
         }
     }
 
-    private boolean add(E element) {
+    public boolean add(E element) {
         if (elements.length == size) {
             this.ensureCapacity(5);
         }
@@ -57,7 +57,7 @@ public class MyList<E> {
         }
     }
 
-    private void ensureCapacity(int minCapacity) {
+    public void ensureCapacity(int minCapacity) {
         if (minCapacity >= 0) {
             int newSize = this.elements.length + minCapacity;
             elements = Arrays.copyOf(elements, newSize);
