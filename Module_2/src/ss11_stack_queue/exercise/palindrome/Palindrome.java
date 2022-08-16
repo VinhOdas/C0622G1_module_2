@@ -10,7 +10,7 @@ public class Palindrome {
 
     public static void checkPalindrome(String string){
         int i, j;
-        string = string.replaceAll("\\s", "");
+        string = string.replaceAll("", "");
         int halfLength = string.length() / 2;
 
 
