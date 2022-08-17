@@ -4,12 +4,12 @@ public class Person {
     private int id ;
     private String name;
     private String birthDay;
-    private boolean gender;
+    private String gender;
 
     public Person() {
     }
 
-    public Person(int id, String name, String birthDay, boolean gender) {
+    public Person(int id, String name, String birthDay, String gender) {
         this.id = id;
         this.name = name;
         this.birthDay = birthDay;
@@ -40,11 +40,11 @@ public class Person {
         this.birthDay = birthDay;
     }
 
-    public boolean isGender() {
+    public String isGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -54,7 +54,7 @@ public class Person {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", birthDay='" + birthDay + '\'' +
-                ", sex=" + gender +
+                ", gender=" + gender +
                 '}';
     }
 }

@@ -11,6 +11,7 @@ public class StudentService implements IStudentService {
     public static Scanner sc = new Scanner(System.in);
     public static List<Student> students = new ArrayList<>();
 
+
     @Override
     public void addStudent() {
         Student student = this.infoStudent();
@@ -45,20 +46,36 @@ public class StudentService implements IStudentService {
         return null ;
     }
 
+    @Override
+    public void updateStudent() {
+
+    }
+
     public Student infoStudent() {
-        System.out.println("Nhập vào id");
-        int id = Integer.parseInt(sc.nextLine());
-        System.out.println("Nhập vào tên của bạn");
+        int id;
+        int count =0;
+        do {  System.out.println("Nhập vào id");
+            id = Integer.parseInt(sc.nextLine());
+
+            for (int i = 0; i < students.size(); i++) {
+                if (students.get(i).getId() == id) {
+                    count++;
+                    System.out.println("sai");
+                    break;
+                }
+            }
+        } while (count != 0);
+        System.out.println("Nhập vào tên học viên");
         String name = sc.nextLine();
-        System.out.println("Nhập vào ngày sinh của bạn");
+        System.out.println("Nhập vào ngày sinh của học viên");
         String birthDay = sc.nextLine();
-        System.out.println("Nhập vào giới tính của bạn");
-        boolean sex = Boolean.parseBoolean(sc.nextLine());
-        System.out.println("Nhập vào điểm của bạn");
+        System.out.println("Nhập vào giới tính của học viên");
+        String  gender = sc.nextLine();
+        System.out.println("Nhập vào điểm của học viên");
         int pointStudent = Integer.parseInt(sc.nextLine());
-        System.out.println("Mời bạn nhập tên lớp");
+        System.out.println("Mời học viên nhập tên lớp");
         String classStudent = sc.nextLine();
-        Student student = new Student(id,name,birthDay,sex,classStudent,pointStudent);
+        Student student = new Student(id,name,birthDay,gender,classStudent,pointStudent);
         return student;
     }
 }

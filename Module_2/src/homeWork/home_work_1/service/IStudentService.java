@@ -8,4 +8,7 @@ public interface IStudentService {
     void dispayListStudent();
 
     void removeStudent();
+
+    void updateStudent();
+
 }

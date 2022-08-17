@@ -12,8 +12,8 @@ private double pointStudent;
         this.pointStudent = pointStudent;
     }
 
-    public Student(int id, String name, String birthDay, boolean sex, String classStudent, double pointStudent) {
-        super(id, name, birthDay, sex);
+    public Student(int id, String name, String birthDay, String gender, String classStudent, double pointStudent) {
+        super(id, name, birthDay, gender);
         this.classStudent = classStudent;
         this.pointStudent = pointStudent;
     }
