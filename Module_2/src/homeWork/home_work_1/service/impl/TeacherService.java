@@ -110,6 +110,12 @@ public class TeacherService implements ITeacherService {
         return null;
     }
 
+    @Override
+    public void searchTeacher() {
+        Teacher teacher = this.findTeacher();
+        
+    }
+
     public Teacher infoTeacher() {
         System.out.println("Nhập vào id");
         int id = Integer.parseInt(scanner.nextLine());

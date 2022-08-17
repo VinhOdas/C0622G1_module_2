@@ -59,7 +59,8 @@ public class PersonController {
                             "\n 1.2 Thêm mới giảng viên" +
                             "\n 1.3 Cập nhật thông tin giảng viên" +
                             "\n 1.4 Xóa giảng viên" +
-                            "\n 1.5 Thoát");
+                            "\n 1.5 Thoát" +
+                            "\n 1.6 Tìm kiếm giảng viên");
                     choice = Integer.parseInt(scanner.nextLine());
                     switch (choice){
                         case 1:
@@ -76,6 +77,9 @@ public class PersonController {
                             break;
                         case 5:
                             System.exit(0);
+                            break;
+                        case 6:
+                            teacherService.searchTeacher();
                             break;
                         default:
                             System.out.println("Không có lựa chọn này mời bạn lựa chọn lại");

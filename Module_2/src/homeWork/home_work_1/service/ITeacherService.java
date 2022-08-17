@@ -10,4 +10,7 @@ public interface ITeacherService  {
     void updateTeacher();
 
     void removeTeacher();
+
+    void searchTeacher();
+
 }
