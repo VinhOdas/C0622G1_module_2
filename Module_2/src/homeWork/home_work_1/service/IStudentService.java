@@ -11,4 +11,10 @@ public interface IStudentService {
 
     void updateStudent();
 
+    void displayStudentOptional();
+
+    void searchIdStudent();
+
+    void searchNameStudent();
+
 }

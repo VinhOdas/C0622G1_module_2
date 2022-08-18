@@ -1,6 +1,7 @@
 package homeWork.home_work_1.service.impl;
 
 import homeWork.home_work_1.model.Student;
+import homeWork.home_work_1.model.Teacher;
 import homeWork.home_work_1.service.IStudentService;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class StudentService implements IStudentService {
     public static Scanner sc = new Scanner(System.in);
     public static List<Student> students = new ArrayList<>();
+    public static List<Student> students1 = new ArrayList<>();
 
 
     @Override
@@ -47,8 +49,40 @@ public class StudentService implements IStudentService {
     }
 
     @Override
+    public void displayStudentOptional() {
+
+    }
+    public void displayScoreStudent(){
+        System.out.println("Nhập điểm muốn sắp xếp");
+        int scoreStudent = Integer.parseInt(sc.nextLine());
+        for (int i = 0; i <students.size() ; i++) {
+            if (students.get(i).getId() > scoreStudent){
+                System.out.println(students.toString());
+            }
+        }
+    }
+
+    @Override
     public void updateStudent() {
 
+    }
+
+    @Override
+    public void searchIdStudent() {
+        Student student = this.findStudent();
+        System.out.println("sản phẩm muốn tìm là" + student.toString());
+    }
+
+    @Override
+    public void searchNameStudent() {
+        System.out.println("nhập vào tên muốn tìm");
+        String nameTeacherSearch = sc.nextLine();
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getName().contains(nameTeacherSearch)) {
+                System.out.println("danh sách giảng viên bạn đang tìm là: " + students.get(i).toString());
+            }
+
+        }
     }
 
     public Student infoStudent() {

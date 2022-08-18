@@ -22,16 +22,28 @@ public class PersonController {
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
-                    System.out.println("1.1 Hiển thị danh sách học viên" +
+                    System.out.println("1.1 Hiển thị danh sách giảng viên" +
                             "\n 1.2 Thêm mới học viên" +
                             "\n 1.3 Cập nhật thông tin học viên" +
                             "\n 1.4 Xóa học viên" +
-                            "\n 1.5 Thoát");
+                            "\n 1.5 Tìm kiếm học viên" +
+                            "\n 1.6 Sắp xếp  " +
+                            "\n 1.7 Trở lại");
                     choice = Integer.parseInt(scanner.nextLine());
                     switch (choice){
                         case 1:
-                            studentService.dispayListStudent();
-                            break;
+                            System.out.println("1.1.1. Hiển thị danh sách toàn bộ sinh viên" +
+                                    "\n 1.1.2. Hiển thị danh sách sinh viên tùy chọn" +
+                                    "\n 1.1.3 Quay trở lại menu");
+                            choice = Integer.parseInt(scanner.nextLine());
+                            switch (choice) {
+                                case 1:
+                                studentService.dispayListStudent();
+                                break;
+                                case 2:
+                                    studentService.displayStudentOptional();
+                                    break;
+                            }
                         case 2:
                             studentService.addStudent();
                             break;
@@ -42,8 +54,21 @@ public class PersonController {
                             studentService.removeStudent();
                             break;
                         case 5:
-                            menu();
+                            System.out.println("Hiển thị thông tin muốn tìm" +
+                                    "\n 1. Tìm theo id" +
+                                    "\n 2. Tìm theo tên");
+                            int choice1 = Integer.parseInt(scanner.nextLine());
+                            switch (choice1){
+                                case 1:
+                                    studentService.searchIdStudent();
+                                    break;
+                                case 2:
+                                    studentService.searchNameStudent();
+                                    break;
+                            }
+
                             break;
+
                         default:
                             System.out.println("Không có lựa chọn này mời bạn lựa chọn lại");
                     }
