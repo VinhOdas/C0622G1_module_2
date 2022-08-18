@@ -42,7 +42,7 @@ public class PersonController {
                             studentService.removeStudent();
                             break;
                         case 5:
-                            System.exit(0);
+                            menu();
                             break;
                         default:
                             System.out.println("Không có lựa chọn này mời bạn lựa chọn lại");
