@@ -12,9 +12,9 @@ public class TeacherService implements ITeacherService {
     public static List<Teacher> teachers = new ArrayList<>();
 
     static {
-        teachers.add(new Teacher(1, "vinh", "17/11/1999", "true", "hóa"));
-        teachers.add(new Teacher(2, "vinh1", "17/11/1999", "true", "hóa"));
-        teachers.add(new Teacher(3, "vinh2", "17/11/1999", "false", "hóa"));
+        teachers.add(new Teacher(1, "pham quang vinh", "17/11/1999", "true", "hóa"));
+        teachers.add(new Teacher(2, "pham quang son", "17/11/1999", "true", "hóa"));
+        teachers.add(new Teacher(3, "pham van peter", "17/11/1999", "false", "hóa"));
 
     }
 
@@ -80,7 +80,7 @@ public class TeacherService implements ITeacherService {
     @Override
     public void searchIdTeacher() {
         Teacher teacher = this.findTeacher();
-        System.out.println("sản phẩm muốn tìm là" +teacher.toString());
+        System.out.println("sản phẩm muốn tìm là" + teacher.toString());
 
     }
 
@@ -119,6 +119,40 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public void sortTeacher() {
+        System.out.println("Danh sách lựa chọn sắp xếp" +
+                "1. Sắp xếp theo id" +
+                "2. Sắp xếp theo tên");
+        int choice = Integer.parseInt(scanner.nextLine());
+        switch (choice) {
+            case 1:
+
+                break;
+            case 2:
+                sortNameTeacher();
+                break;
+        }
+
+    }
+
+    public Teacher sortIdTeacher() {
+
+        return null;
+    }
+
+    public void sortNameTeacher() {
+        boolean isSwap = true;
+        for (int i = 0; i < teachers.size() - 1 && isSwap; i++) {
+            isSwap = false;
+            int j;
+            for (j = 0; j < teachers.size() - 1 - i; j++) {
+                if (teachers.get(j).getName().compareTo(teachers.get(j + 1).getName()) > 0) {
+                    isSwap = true;
+                    Teacher temp = teachers.get(j + 1);
+                    teachers.set(j + 1, teachers.get(j));
+                    teachers.set(j, temp);
+                }
+            }
+        }
 
     }
 
@@ -126,9 +160,9 @@ public class TeacherService implements ITeacherService {
     public void searchNameTeacher() {
         System.out.println("nhập vào tên muốn tìm");
         String nameTeacherSearch = scanner.nextLine();
-        for (int i = 0; i <teachers.size() ; i++) {
-            if (teachers.get(i).getName().contains(nameTeacherSearch)){
-                System.out.println("danh sách giảng viên bạn đang tìm là: " +teachers.get(i).toString());
+        for (int i = 0; i < teachers.size(); i++) {
+            if (teachers.get(i).getName().contains(nameTeacherSearch)) {
+                System.out.println("danh sách giảng viên bạn đang tìm là: " + teachers.get(i).toString());
             }
 
         }
@@ -137,7 +171,7 @@ public class TeacherService implements ITeacherService {
     public Teacher infoTeacher() {
         System.out.println("Nhập vào id");
         int id = Integer.parseInt(scanner.nextLine());
-        int count =0;
+        int count = 0;
         do {
 
             for (int i = 0; i < teachers.size(); i++) {

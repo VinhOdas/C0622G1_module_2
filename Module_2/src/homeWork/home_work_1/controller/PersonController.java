@@ -19,12 +19,6 @@ public class PersonController {
             System.out.println("1. Lựa chọn học viên" +
                                 "\n 2. Lựa chọn giảng viên" +
                                 "\n 3.Exit");
-//            System.out.println("1.Hiển thị danh sách học viên");
-//            System.out.println("2.Thêm mới học viên");
-//            System.out.println("3.Cập nhật thông tin học viên");
-//            System.out.println("4.Xóa học viên");
-//            System.out.println("5.Thoát");
-//            System.out.println("Mời bạn nhập chức nawng1->5");
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
@@ -60,7 +54,8 @@ public class PersonController {
                             "\n 1.3 Cập nhật thông tin giảng viên" +
                             "\n 1.4 Xóa giảng viên" +
                             "\n 1.5 Thoát" +
-                            "\n 1.6 Tìm kiếm giảng viên");
+                            "\n 1.6 Tìm kiếm giảng viên" +
+                            "\n 1.7 Xoa");
                     choice = Integer.parseInt(scanner.nextLine());
                     switch (choice){
                         case 1:
@@ -93,7 +88,9 @@ public class PersonController {
                             }
                             break;
                         case 7:
+
                             teacherService.sortTeacher();
+                            break;
                         default:
                             System.out.println("Không có lựa chọn này mời bạn lựa chọn lại");
                     }
