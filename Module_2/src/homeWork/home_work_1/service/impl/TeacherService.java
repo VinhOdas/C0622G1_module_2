@@ -78,6 +78,13 @@ public class TeacherService implements ITeacherService {
     }
 
     @Override
+    public void searchIdTeacher() {
+        Teacher teacher = this.findTeacher();
+        System.out.println("sản phẩm muốn tìm là" +teacher.toString());
+
+    }
+
+    @Override
     public void removeTeacher() {
         Teacher teacher = this.findTeacher();
         if (teacher != null) {
@@ -110,10 +117,17 @@ public class TeacherService implements ITeacherService {
         return null;
     }
 
+
     @Override
-    public void searchTeacher() {
-        Teacher teacher = this.findTeacher();
-        
+    public void searchNameTeacher() {
+        System.out.println("nhập vào tên muốn tìm");
+        String nameTeacherSearch = scanner.nextLine();
+        for (int i = 0; i <teachers.size() ; i++) {
+            if (teachers.get(i).getName().contains(nameTeacherSearch)){
+                System.out.println("danh sách giảng viên bạn đang tìm là: " +teachers.get(i).toString());
+            }
+
+        }
     }
 
     public Teacher infoTeacher() {

@@ -79,7 +79,18 @@ public class PersonController {
                             System.exit(0);
                             break;
                         case 6:
-                            teacherService.searchTeacher();
+                            System.out.println("Hiển thị thông tin muốn tìm" +
+                                    "\n 1. Tìm theo id" +
+                                    "\n 2. Tìm theo tên");
+                            int choice1 = Integer.parseInt(scanner.nextLine());
+                            switch (choice1){
+                                case 1:
+                                    teacherService.searchIdTeacher();
+                                    break;
+                                case 2:
+                                    teacherService.searchNameTeacher();
+                                    break;
+                            }
                             break;
                         default:
                             System.out.println("Không có lựa chọn này mời bạn lựa chọn lại");

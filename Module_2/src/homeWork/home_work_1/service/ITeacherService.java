@@ -11,6 +11,8 @@ public interface ITeacherService  {
 
     void removeTeacher();
 
-    void searchTeacher();
+    void searchNameTeacher();
+
+    void searchIdTeacher();
 
 }
