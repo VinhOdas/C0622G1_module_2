@@ -92,6 +92,8 @@ public class PersonController {
                                     break;
                             }
                             break;
+                        case 7:
+                            teacherService.sortTeacher();
                         default:
                             System.out.println("Không có lựa chọn này mời bạn lựa chọn lại");
                     }
