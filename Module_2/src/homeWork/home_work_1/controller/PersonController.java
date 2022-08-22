@@ -16,9 +16,14 @@ public class PersonController {
         while (true) {
             System.out.println("-----------------------------");
             System.out.println("Chào mừng bạn đến với lớp C0622G1");
-            System.out.println("1. Lựa chọn học viên" +
-                                "\n 2. Lựa chọn giảng viên" +
-                                "\n 3.Exit");
+            try {
+                System.out.println("1. Lựa chọn học viên" +
+                        "\n 2. Lựa chọn giảng viên" +
+                        "\n 3.Exit");
+
+
+            }catch (NumberFormatException e){}
+
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:

@@ -3,6 +3,7 @@ package homeWork.home_work_1.service.impl;
 import homeWork.home_work_1.model.Student;
 import homeWork.home_work_1.model.Teacher;
 import homeWork.home_work_1.service.IStudentService;
+import ss7_abstract_class_interface.practice.interface_comparable.model.Comparable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,8 @@ public class StudentService implements IStudentService {
 
     @Override
     public void displayStudentOptional() {
+        System.out.println("Nhập lựa chọn của bạn");
+        int choise = Integer.parseInt(sc.nextLine());
 
     }
     public void displayScoreStudent(){
@@ -64,7 +67,46 @@ public class StudentService implements IStudentService {
 
     @Override
     public void updateStudent() {
+        Student studentUpdate = this.findStudent();
+        if (studentUpdate == null) {
+            System.out.println("Không có");
+        } else {
+            System.out.println("Chọn 1 nếu bạn muốn thay đổi" +
+                    "\n 1. Mã học viên" +
+                    "\n    Tên học viên" +
+                    "\n  ngày tháng năm sinh" +
+                    "\n  giới tính" +
+                    "\n  điểm" +
+                    "\n lớp ");
+            int choise = Integer.parseInt(sc.nextLine());
+            switch (choise) {
+                case 1:
+                    System.out.println("bạn muốn thay đổi id thành: ");
+                    int idUpdate = Integer.parseInt(sc.nextLine());
+                    studentUpdate.setId(idUpdate);
+                    System.out.println("bạn muốn thay đổi tên thành: ");
+                    String nameUpdate = sc.nextLine();
+                    System.out.println("bạn muốn thay đổi ngày sinh thành: ");
+                    String birthDayUpdate = sc.nextLine();
+                    System.out.println("bạn muốn thay đổi giới tính thành: ");
+                    boolean genderUpdate = Boolean.parseBoolean(sc.nextLine());
+                    System.out.println("bạn muốn thay đổi lớp thành: ");
+                    String classStudent = sc.nextLine();
+                    System.out.println("bạn muốn thay đổi điểm thành: ");
+                    int scoreStudent = Integer.parseInt(sc.nextLine());
+                    System.out.println("bạn đã thay đổi thành công");
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
 
+            }
+        }
     }
 
     @Override
@@ -79,7 +121,7 @@ public class StudentService implements IStudentService {
         String nameTeacherSearch = sc.nextLine();
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).getName().contains(nameTeacherSearch)) {
-                System.out.println("danh sách giảng viên bạn đang tìm là: " + students.get(i).toString());
+                System.out.println("danh sách học viên bạn đang tìm là: " + students.get(i).toString());
             }
 
         }
