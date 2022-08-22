@@ -16,7 +16,9 @@ import java.util.Scanner;
 public class StudentService implements IStudentService {
     public static Scanner sc = new Scanner(System.in);
     public static List<Student> students = new ArrayList<>();
-    public static List<Student> students1 = new ArrayList<>();
+    private static final String pathFile = "src\\homeWork\\home_work_1\\data\\studens.txt";
+
+
 
 
     @Override

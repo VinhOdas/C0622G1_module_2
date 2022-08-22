@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class TeacherService implements ITeacherService {
     Scanner scanner = new Scanner(System.in);
     public static List<Teacher> teachers = new ArrayList<>();
+    private static final String pathFile = "src\\homeWork\\home_work_1\\data\\studens.txt";
 
     static {
         teachers.add(new Teacher(1, "pham quang vinh", "17/11/1999", "true", "hóa"));
