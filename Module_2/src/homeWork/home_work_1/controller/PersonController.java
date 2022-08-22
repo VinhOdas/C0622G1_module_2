@@ -5,6 +5,7 @@ import homeWork.home_work_1.service.ITeacherService;
 import homeWork.home_work_1.service.impl.StudentService;
 import homeWork.home_work_1.service.impl.TeacherService;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class PersonController {
@@ -12,7 +13,7 @@ public class PersonController {
     private static final IStudentService studentService = new StudentService();
     private static final ITeacherService teacherService = new TeacherService();
 
-    public void menu() {
+    public void menu() throws IOException {
         while (true) {
             System.out.println("-----------------------------");
             System.out.println("Chào mừng bạn đến với lớp C0622G1");

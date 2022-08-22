@@ -1,9 +1,11 @@
 package homeWork.home_work_1.service;
 
+import java.io.IOException;
+
 public interface IStudentService {
 
 
-    void addStudent();
+    void addStudent() throws IOException;
 
     void dispayListStudent();
 

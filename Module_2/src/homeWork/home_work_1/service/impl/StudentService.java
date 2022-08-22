@@ -5,10 +5,13 @@ import homeWork.home_work_1.model.Student;
 import homeWork.home_work_1.model.Teacher;
 import homeWork.home_work_1.service.IStudentService;
 
+import homeWork.home_work_1.util.read_write_file.ReadFileUtil;
+import homeWork.home_work_1.util.read_write_file.WriteFileUtil;
 import ss7_abstract_class_interface.practice.interface_comparable.model.Comparable;
 
 import homeWork.home_work_1.service.InfoException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,10 +25,12 @@ public class StudentService implements IStudentService {
 
 
     @Override
-    public void addStudent() {
+    public void addStudent() throws IOException {
+        students = ReadFileUtil.readStudentFile(pathFile);
         Student student = this.infoStudent();
         students.add(student);
         System.out.println("OK");
+        WriteFileUtil.writeStudentFile(pathFile,students);
     }
 
     @Override
