@@ -25,13 +25,13 @@ public class ReadAndWriteFile {
         return strings;
 
     }
-    public void writeFile(String filePath,List<String> string){
+    public void writeFile(List<String> stringFile ,String filePath){
         try {
-            FileWriter writer = new FileWriter(filePath, true);
+            FileWriter writer = new FileWriter(filePath);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
-            String data = "";
-            for (String strings: string) {
-                data += strings.toString();
+            for (int i = 0; i <stringFile.size() ; i++) {
+                bufferedWriter.write(stringFile.get(i));
+                bufferedWriter.newLine();
             }
             bufferedWriter.close();
         }catch (IOException e){

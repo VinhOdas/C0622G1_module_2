@@ -4,11 +4,10 @@ import com.sun.javaws.jnl.InformationDesc;
 import homeWork.home_work_1.model.Student;
 import homeWork.home_work_1.model.Teacher;
 import homeWork.home_work_1.service.IStudentService;
-<<<<<<< HEAD
+
 import ss7_abstract_class_interface.practice.interface_comparable.model.Comparable;
-=======
+
 import homeWork.home_work_1.service.InfoException;
->>>>>>> 27ac4b79768d19c5c7c798d805fa4099b3854f08
 
 import java.util.ArrayList;
 import java.util.List;
