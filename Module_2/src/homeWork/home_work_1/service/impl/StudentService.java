@@ -5,8 +5,7 @@ import homeWork.home_work_1.model.Student;
 import homeWork.home_work_1.model.Teacher;
 import homeWork.home_work_1.service.IStudentService;
 
-import homeWork.home_work_1.util.read_write_file.ReadFileUtil;
-import homeWork.home_work_1.util.read_write_file.WriteFileUtil;
+import homeWork.home_work_1.util.read_write_file.WriteFile;
 import ss7_abstract_class_interface.practice.interface_comparable.model.Comparable;
 
 import homeWork.home_work_1.service.InfoException;
@@ -19,18 +18,31 @@ import java.util.Scanner;
 public class StudentService implements IStudentService {
     public static Scanner sc = new Scanner(System.in);
     public static List<Student> students = new ArrayList<>();
-    private static final String pathFile = "src\\homeWork\\home_work_1\\data\\studens.txt";
+    private static final String path_Son_Mat_lon_File = "src\\homeWork\\home_work_1\\data\\studens.txt";
 
 
 
 
     @Override
     public void addStudent() throws IOException {
-        students = ReadFileUtil.readStudentFile(pathFile);
+
+//        students = ReadFileUtil.readStudentFile(pathFile);
         Student student = this.infoStudent();
         students.add(student);
         System.out.println("OK");
-        WriteFileUtil.writeStudentFile(pathFile,students);
+        WriteFile.writeFile(path_Son_Mat_lon_File,true,convertStudentToString(students));
+
+    }
+    private String convertString(Student student){
+        return student.getId()+","+student.getName()+","+student.getBirthDay()+","+student.getPointStudent()+","+student.getClassStudent();
+    }
+
+    private List<String> convertStudentToString(List<Student> students) {
+        List<String> stringList = new ArrayList<>();
+        for (Student student: students) {
+            stringList.add(convertString(student));
+        }
+        return stringList;
     }
 
     @Override
@@ -244,5 +256,6 @@ public class StudentService implements IStudentService {
 
         return new Student(id, name, dayOfBirth, gender, nameClass, score);
     }
+
     }
 

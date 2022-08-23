@@ -4,7 +4,23 @@ public class Student extends Person {
 private String classStudent;
 private double pointStudent;
 
-    public Student(int id, String name, String birthDay, String gender, double v, String s) {
+    public Student(int id, String name, String birthDay, String gender, double pointStudent, String classStudent) {
+    }
+
+    public String getClassStudent() {
+        return classStudent;
+    }
+
+    public void setClassStudent(String classStudent) {
+        this.classStudent = classStudent;
+    }
+
+    public double getPointStudent() {
+        return pointStudent;
+    }
+
+    public void setPointStudent(double pointStudent) {
+        this.pointStudent = pointStudent;
     }
 
     public Student(String classStudent, double pointStudent) {
