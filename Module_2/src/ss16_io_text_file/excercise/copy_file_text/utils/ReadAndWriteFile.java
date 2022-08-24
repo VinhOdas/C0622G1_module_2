@@ -1,4 +1,4 @@
-package ss16_io_text_file.excercise.copy_file_text.model;
+package ss16_io_text_file.excercise.copy_file_text.utils;
 
 import java.io.*;
 import java.util.ArrayList;

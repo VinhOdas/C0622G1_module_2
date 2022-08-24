@@ -1,2 +1,1 @@
-int id, String name, String birthDay, String gender, double v, String s
-15,Vinh,17/11/1999,Nam,10,C0622G1
+1,Vinh,17/11/1999,10.0,C0622G1

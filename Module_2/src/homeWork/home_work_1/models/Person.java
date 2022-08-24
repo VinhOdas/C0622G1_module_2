@@ -1,4 +1,4 @@
-package homeWork.home_work_1.model;
+package homeWork.home_work_1.models;
 
 public class Person {
     private int id ;

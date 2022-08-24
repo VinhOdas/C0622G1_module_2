@@ -1,6 +1,6 @@
-package homeWork.home_work_1.util;
+package homeWork.home_work_1.utils;
 
-import homeWork.home_work_1.model.Student;
+import homeWork.home_work_1.models.Student;
 
 import java.io.BufferedWriter;
 import java.io.File;

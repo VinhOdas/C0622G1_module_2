@@ -1,6 +1,6 @@
 package ss16_io_text_file.excercise.read_file_csv.controller;
 
-import ss16_io_text_file.excercise.read_file_csv.model.ReadFileCSV;
+import ss16_io_text_file.excercise.read_file_csv.util.ReadFileCSV;
 
 import java.io.IOException;
 import java.util.List;

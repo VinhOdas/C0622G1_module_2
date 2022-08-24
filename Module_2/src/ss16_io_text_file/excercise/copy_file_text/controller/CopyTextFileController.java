@@ -1,6 +1,6 @@
 package ss16_io_text_file.excercise.copy_file_text.controller;
 
-import ss16_io_text_file.excercise.copy_file_text.model.ReadAndWriteFile;
+import ss16_io_text_file.excercise.copy_file_text.utils.ReadAndWriteFile;
 
 import java.util.List;
 

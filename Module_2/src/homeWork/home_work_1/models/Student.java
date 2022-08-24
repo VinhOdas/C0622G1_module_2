@@ -1,10 +1,21 @@
-package homeWork.home_work_1.model;
+package homeWork.home_work_1.models;
 
 public class Student extends Person {
-private String classStudent;
 private double pointStudent;
+    private String classStudent;
+
+    public Student() {
+    }
+
+    public Student(double pointStudent, String classStudent) {
+        this.pointStudent = pointStudent;
+        this.classStudent = classStudent;
+    }
 
     public Student(int id, String name, String birthDay, String gender, double pointStudent, String classStudent) {
+        super(id, name, birthDay, gender);
+        this.pointStudent = pointStudent;
+        this.classStudent = classStudent;
     }
 
     public String getClassStudent() {
@@ -28,17 +39,13 @@ private double pointStudent;
         this.pointStudent = pointStudent;
     }
 
-    public Student(int id, String name, String birthDay, String gender, String classStudent, double pointStudent) {
-        super(id, name, birthDay, gender);
-        this.classStudent = classStudent;
-        this.pointStudent = pointStudent;
-    }
+
 
     @Override
     public String toString() {
-        return "Student{" +super.toString()+
-                "classStudent='" + classStudent + '\'' +
-                ", pointStudent=" + pointStudent +
+        return "Student{" + super.toString()+
+                "pointStudent=" + pointStudent +
+                ", classStudent='" + classStudent + '\'' +
                 '}';
     }
 }

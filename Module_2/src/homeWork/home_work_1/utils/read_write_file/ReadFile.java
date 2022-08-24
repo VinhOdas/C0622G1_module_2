@@ -1,4 +1,6 @@
-package homeWork.home_work_1.util.read_write_file;
+package homeWork.home_work_1.utils.read_write_file;
+
+import homeWork.home_work_1.models.Student;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,4 +24,15 @@ public class ReadFile {
         }
         return strings;
     }
+    public static List<Student> readStudentList (String path){
+        List<String> strings = stringList(path);
+        List<Student> students = new ArrayList<>();
+        String[] info;
+        for (String line: strings) {
+            info = line.split(",");
+            students.add(new Student(Integer.parseInt(info[0]),info[1],info[2],info[3],Double.parseDouble(info[4]),info[5]));
+        }
+        return students;
+    }
+
 }

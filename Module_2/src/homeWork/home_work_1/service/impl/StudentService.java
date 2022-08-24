@@ -1,13 +1,9 @@
 package homeWork.home_work_1.service.impl;
 
-import com.sun.javaws.jnl.InformationDesc;
-import homeWork.home_work_1.model.Student;
-import homeWork.home_work_1.model.Teacher;
+import homeWork.home_work_1.models.Student;
 import homeWork.home_work_1.service.IStudentService;
-
-import homeWork.home_work_1.util.read_write_file.WriteFile;
-import ss7_abstract_class_interface.practice.interface_comparable.model.Comparable;
-
+import homeWork.home_work_1.utils.read_write_file.ReadFile;
+import homeWork.home_work_1.utils.read_write_file.WriteFile;
 import homeWork.home_work_1.service.InfoException;
 
 import java.io.IOException;
@@ -20,17 +16,23 @@ public class StudentService implements IStudentService {
     public static List<Student> students = new ArrayList<>();
     private static final String path_Son_Mat_lon_File = "src\\homeWork\\home_work_1\\data\\studens.txt";
 
+    static {
+        students.add(new Student(1, "Pham Quang Vinh", "17/11/1999", "Nam", 10,"C0622G1"));
+        students.add(new Student(2, "Pham Quang Vinh1", "17/11/1999", "Nam", 10,"C0622G1"));
+        students.add(new Student(3, "Pham Quang Vinh2", "17/11/1999", "Nam", 10,"C0622G1"));
 
+
+    }
 
 
     @Override
     public void addStudent() throws IOException {
-
+        students = ReadFile.readStudentList((path_Son_Mat_lon_File));
 //        students = ReadFileUtil.readStudentFile(pathFile);
         Student student = this.infoStudent();
         students.add(student);
         System.out.println("OK");
-        WriteFile.writeFile(path_Son_Mat_lon_File,true,convertStudentToString(students));
+        WriteFile.writeFile(path_Son_Mat_lon_File, convertStudentToString(students));
 
     }
     private String convertString(Student student){
@@ -54,12 +56,14 @@ public class StudentService implements IStudentService {
 
     @Override
     public void removeStudent() {
+        students = ReadFile.readStudentList(path_Son_Mat_lon_File);
     Student student = this.findStudent();
     if (student == null){
         System.out.println("không tìm thấy đối tượng cần xóa");
     }else {
         System.out.println("bạn có muốn xóa đối tượng là " +student.getId()+"không >");
     }
+     WriteFile.writeFile(path_Son_Mat_lon_File,convertStudentToString(students));
     }
     public Student findStudent(){
         System.out.println("Mời bạn nhập vào id cần xóa");
@@ -69,6 +73,7 @@ public class StudentService implements IStudentService {
                 return students.get(i);
             }
         }
+
         return null ;
     }
 
@@ -254,7 +259,7 @@ public class StudentService implements IStudentService {
             }
         } while (true);
 
-        return new Student(id, name, dayOfBirth, gender, nameClass, score);
+        return new Student(id, name, dayOfBirth, gender,  score,nameClass);
     }
 
     }

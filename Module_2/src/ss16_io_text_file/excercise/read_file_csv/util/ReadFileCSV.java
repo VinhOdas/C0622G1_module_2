@@ -1,4 +1,4 @@
-package ss16_io_text_file.excercise.read_file_csv.model;
+package ss16_io_text_file.excercise.read_file_csv.util;
 
 import java.io.*;
 import java.util.ArrayList;

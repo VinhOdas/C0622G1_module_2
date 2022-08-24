@@ -1,1 +1,1 @@
-Student{Person{id=2, name='vinh', birthDay='17/11/1999', gender=Nam}classStudent='C0622G1', pointStudent=10.0}
+1,Vinh,17/11/1999,10.0,C0622G1

@@ -1,6 +1,6 @@
 package homeWork.home_work_1.service.impl;
 
-import homeWork.home_work_1.model.Teacher;
+import homeWork.home_work_1.models.Teacher;
 import homeWork.home_work_1.service.ITeacherService;
 
 import java.util.ArrayList;
@@ -28,6 +28,7 @@ public class TeacherService implements ITeacherService {
 
     @Override
     public void addTeacher() {
+
         Teacher teacher = this.infoTeacher();
         teachers.add(teacher);
         System.out.println("Bạn đã add thành công");
