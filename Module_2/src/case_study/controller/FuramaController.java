@@ -1,8 +1,6 @@
 package case_study.controller;
 
-import case_study.service.IHouseService;
-import case_study.service.IRoomService;
-import case_study.service.IVillaService;
+
 import case_study.service.impl.booking_service.HouseService;
 import case_study.service.impl.booking_service.RoomService;
 import case_study.service.impl.booking_service.VillaService;
@@ -11,9 +9,9 @@ import java.util.Scanner;
 
 public class FuramaController {
     private Scanner scanner = new Scanner(System.in);
-    private static final IVillaService villaService = new VillaService();
-    private static final IHouseService houseService = new HouseService();
-    private static final IRoomService roomService = new RoomService();
+//    private static final IVillaService villaService = new VillaService();
+//    private static final IHouseService houseService = new HouseService();
+//    private static final IRoomService roomService = new RoomService();
 
     public void displayMainMenu() {
         while (true) {

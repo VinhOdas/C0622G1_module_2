@@ -1,6 +1,6 @@
 package case_study.model.father_class;
 
-public class Person {
+public abstract class Person {
     private String name;
     private String birthDay;
     private String gender;

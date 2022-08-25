@@ -79,6 +79,7 @@ public class StudentService implements IStudentService {
 
     @Override
     public void displayStudentOptional() {
+        students = ReadFile.readStudentList(path_Son_Mat_lon_File);
         System.out.println("Nhập lựa chọn của bạn");
         int choise = Integer.parseInt(sc.nextLine());
 
