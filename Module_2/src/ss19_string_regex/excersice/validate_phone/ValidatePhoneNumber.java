@@ -1,4 +1,4 @@
-package ss19_string_regex.excersice.validate_name_class;
+package ss19_string_regex.excersice.validate_phone;
 
 import java.util.Scanner;
 
