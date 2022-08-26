@@ -1,4 +1,6 @@
 package case_study.service.impl;
 
-public class FacilityService {
+import case_study.service.IFacilityService;
+
+public class FacilityService implements IFacilityService {
 }

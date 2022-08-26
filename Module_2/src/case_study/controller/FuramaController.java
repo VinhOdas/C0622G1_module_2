@@ -1,9 +1,9 @@
 package case_study.controller;
 
 
-import case_study.service.impl.booking_service.HouseService;
-import case_study.service.impl.booking_service.RoomService;
-import case_study.service.impl.booking_service.VillaService;
+
+import case_study.service.*;
+import case_study.service.impl.*;
 
 import java.util.Scanner;
 
@@ -12,6 +12,14 @@ public class FuramaController {
 //    private static final IVillaService villaService = new VillaService();
 //    private static final IHouseService houseService = new HouseService();
 //    private static final IRoomService roomService = new RoomService();
+    private static final IEmployeeService employeeService = new EmployeeService();
+    private static final IBookingService bookingService = new BookingService();
+    private static final IContactService contactService = new ContactService();
+    private static final IFacilityService facilityService = new FacilityService();
+    private static final ICustomerService customerService = new CustomerService();
+    private static final EmployeeController employeeController = new EmployeeController();
+    private static final CustomerController customerController = new CustomerController();
+
 
     public void displayMainMenu() {
         while (true) {
@@ -32,39 +40,10 @@ public class FuramaController {
             int choise = Integer.parseInt(scanner.nextLine());
             switch (choise) {
                 case 1:
-                    System.out.println(
-                            "1. tDisplay list employees" +
-                                    "\n 2. Add new employee" +
-                                    "\n 3. Edit employee" +
-                                    "\n 4. Return main menu");
-                    choise = Integer.parseInt(scanner.nextLine());
-                    switch (choise) {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                    }
+                    employeeController.menuEmployee();
                     break;
                 case 2:
-                    System.out.println("1. Display list customers" +
-                            "\n 2. Add new customer" +
-                            "\n 3. Edit customer" +
-                            "\n 4. Return main menu");
-                    choise = Integer.parseInt(scanner.nextLine());
-                    switch (choise) {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                    }
+                    customerController.menuCustomer();
                     break;
                 case 3:
                     System.out.println("1. Display list facility" +
