@@ -4,7 +4,7 @@ package ss17_io_binary_file_serialization.excercise.product_save_to_binary_file.
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class Product implements Serializable    {
     private String idProduct;
     private String nameProduct;
     private String producer;
