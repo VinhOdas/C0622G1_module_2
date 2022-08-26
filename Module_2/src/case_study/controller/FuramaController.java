@@ -19,6 +19,9 @@ public class FuramaController {
     private static final ICustomerService customerService = new CustomerService();
     private static final EmployeeController employeeController = new EmployeeController();
     private static final CustomerController customerController = new CustomerController();
+    private static final FacilityController facilityController = new FacilityController();
+    private static final BookingController bookingController = new BookingController();
+    private static final ContactController contactController = new ContactController();
 
 
     public void displayMainMenu() {
@@ -46,61 +49,13 @@ public class FuramaController {
                     customerController.menuCustomer();
                     break;
                 case 3:
-                    System.out.println("1. Display list facility" +
-                            "\n 2. Add new facility" +
-                            "\n 3. Display list facility maintenance" +
-                            "\n 4. Return main menu");
-                    choise = Integer.parseInt(scanner.nextLine());
-                    switch (choise) {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                    }
-                    break;
+                   facilityController.menuFacility();
                 case 4:
-                    System.out.println("1. Add new booking" +
-                            "\n 2. Display list booking" +
-                            "\n 3. Create new constracts" +
-                            "\n 4. Display list contracts" +
-                            "\n 5. Edit contracts" +
-                            "\n 6. Return main menu");
-                    choise = Integer.parseInt(scanner.nextLine());
-                    switch (choise) {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                        case 5:
-                            break;
-                        case 6:
-                            break;
-                    }
+                    bookingController.menuBooking();
                     break;
                 case 5:
-                    System.out.println("1. Display list customers use service" +
-                            "\n 2. Display list customers get voucher" +
-                            "\n 3. Return main menu"
-                    );
-                    choise = Integer.parseInt(scanner.nextLine());
-                    switch (choise) {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-
-                    }
-                    break;
+                    contactController.menuContact();
+                  break;
                 case 6:
                     System.exit(0);
                     break;
