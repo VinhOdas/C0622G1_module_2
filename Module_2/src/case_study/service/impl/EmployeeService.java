@@ -43,17 +43,7 @@ public class EmployeeService implements IEmployeeService {
             System.out.println("Không có");
         } else {
             System.out.println("Chọn 1 nếu bạn muốn thay đổi"
-//                    +
-//                    "\n  Mã nhân viên" +
-//                    "\n  Tên nhân viên" +
-//                    "\n  ngày tháng năm sinh" +
-//                    "\n  giới tính" +
-//                    "\n  CMND" +
-//                    "\n SĐT " +
-//                    "\n gmail" +
-//                    "\n trình độ học vấn" +
-//                    "\n vị trí công việc" +
-//                    "\n tiền lương"
+
                     );
             int choise = Integer.parseInt(sc.nextLine());
             switch (choise) {
