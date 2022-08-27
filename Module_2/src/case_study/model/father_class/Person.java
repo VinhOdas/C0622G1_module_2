@@ -70,8 +70,7 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return "Person{" + super.toString()+
-                "name='" + name + '\'' +
+        return "name='" + name + '\'' +
                 ", birthDay='" + birthDay + '\'' +
                 ", gender='" + gender + '\'' +
                 ", identityCard=" + identityCard +
