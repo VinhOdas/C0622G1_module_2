@@ -70,13 +70,15 @@ public abstract class Facility {
 
     @Override
     public String toString() {
-        return "Furama{" +
-                "serviceCode='" + serviceCode + '\'' +
-                ", serviceName='" + serviceName + '\'' +
-                ", usableArea=" + usableArea +
-                ", rentalCosts=" + rentalCosts +
-                ", maxNumberOfPeople=" + maxNumberOfPeople +
-                ", rentStyle='" + rentStyle + '\'' +
-                '}';
+        return String.format("%s,%s,%s,%s,%s,%s",getServiceCode(),getServiceName()
+                ,getUsableArea(),getRentalCosts(),getMaxNumberOfPeople(),getRentStyle());
+//        return "Furama{" +
+//                "serviceCode='" + serviceCode + '\'' +
+//                ", serviceName='" + serviceName + '\'' +
+//                ", usableArea=" + usableArea +
+//                ", rentalCosts=" + rentalCosts +
+//                ", maxNumberOfPeople=" + maxNumberOfPeople +
+//                ", rentStyle='" + rentStyle + '\'' +
+//                '}';
     }
 }

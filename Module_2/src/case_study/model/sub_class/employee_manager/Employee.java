@@ -68,11 +68,13 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
-        return "idEmployee='" + idEmployee + '\'' +
-                super.toString()+
-                ", level='" + level + '\'' +
-                ", location='" + location + '\'' +
-                ", wage=" + wage +
-                '}';
+        return String.format("%s,%s,%s,%s,%s",
+                getIdEmployee(),super.toString(),getLevel(),getLocation(),getWage());
+//        return "idEmployee='" + idEmployee + '\'' +
+//                super.toString()+
+//                ", level='" + level + '\'' +
+//                ", location='" + location + '\'' +
+//                ", wage=" + wage +
+//                '}';
     }
 }

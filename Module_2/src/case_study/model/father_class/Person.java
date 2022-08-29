@@ -70,12 +70,14 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
-                ", birthDay='" + birthDay + '\'' +
-                ", gender='" + gender + '\'' +
-                ", identityCard=" + identityCard +
-                ", phoneNumber=" + phoneNumber +
-                ", mail='" + mail + '\'' +
-                '}';
+        return  String.format("%s,%s,%s,%s,%s,%s",getName(),getBirthDay()
+                ,getGender(),getIdentityCard(),getPhoneNumber(),getMail());
+//        return "name='" + name + '\'' +
+//                ", birthDay='" + birthDay + '\'' +
+//                ", gender='" + gender + '\'' +
+//                ", identityCard=" + identityCard +
+//                ", phoneNumber=" + phoneNumber +
+//                ", mail='" + mail + '\'' +
+//                '}';
     }
 }

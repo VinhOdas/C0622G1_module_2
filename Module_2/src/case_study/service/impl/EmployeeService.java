@@ -4,9 +4,12 @@ import case_study.controller.FuramaController;
 import case_study.model.sub_class.employee_manager.Employee;
 import case_study.service.IEmployeeService;
 import case_study.service.exception.CheckedException;
+import case_study.utils.read_file.ReadFile;
+import case_study.utils.write_file.WriteFileList;
 import homeWork.home_work_1.models.Student;
 import homeWork.home_work_1.service.InfoException;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +18,7 @@ public class EmployeeService implements IEmployeeService {
 
     public static Scanner sc = new Scanner(System.in);
     public static List<Employee> employees = new ArrayList<>();
-
+    private static final String PATH_EMPLOYEE = "src\\case_study\\data\\Employee.CSV";
     static {
         // idEmployee,name,dayOfBirth,gender,identityCard,phoneNumber,mail,level,location,wage);
         employees.add(new Employee("EP01", "Phạm Quang Vinh", "17/11/1999", "Nam", "123456789",
@@ -24,6 +27,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void displayEmployee() {
+        ReadFile.readEmployeeList(PATH_EMPLOYEE);
         for (Employee employee : employees) {
             System.out.println(employee);
         }
@@ -31,13 +35,28 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void addEmployee() {
+
         Employee employee = this.infoEmployee();
         employees.add(employee);
         System.out.println("Bạn đã thêm nhân viên thành công");
+        WriteFileList.writeFile(PATH_EMPLOYEE,convertEmployeeToString(employees));
+    }
+    private String convertString(Employee employee){
+        return employee.getIdEmployee()+","+employee.getName()+","+employee.getBirthDay()+","+employee.getGender()+","+employee.getIdentityCard()+
+            ","+employee.getPhoneNumber()+","+employee.getMail()+","+employee.getLevel()+","+employee.getLocation()+","+employee.getWage();
+    }
+
+    private List<String> convertEmployeeToString(List<Employee> employees) {
+        List<String> stringList = new ArrayList<>();
+        for (Employee employee: employees) {
+            stringList.add(convertString(employee));
+        }
+        return stringList;
     }
 
     @Override
     public void editEmployee() {
+        ReadFile.readEmployeeList(PATH_EMPLOYEE);
         Employee employee = this.findEmployee();
         if (employee == null) {
             System.out.println("Không có");
@@ -278,7 +297,7 @@ public class EmployeeService implements IEmployeeService {
 
             }
         }
-
+        WriteFileList.writeFile(PATH_EMPLOYEE,convertEmployeeToString(employees));
 
     }
 
@@ -286,23 +305,33 @@ public class EmployeeService implements IEmployeeService {
         System.out.println("Nhập vào id cần tìm");
         String id = sc.nextLine();
         for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getIdEmployee().equals(id)) {
-                return employees.get(i);
+            if (!employees.get(i).getIdEmployee().equals(id)) {
+                System.out.println("mày ngu thì chết mẹ mày đi");
+                break;
             }
+            return employees.get(i);
         }
         return null;
     }
 
     public Employee infoEmployee() {
+        ReadFile.readEmployeeList(PATH_EMPLOYEE);
         String idEmployee;
         while (true) {
-            System.out.println("Enter id:(vd: EP01)");
             try {
+                System.out.println("Enter id:(vd: EP01)");
                 idEmployee = sc.nextLine();
+                for (int i = 0; i < employees.size(); i++) {
+                    if (employees.get(i).getIdEmployee().equals(idEmployee)) {
+                        System.out.println("mày ngu thì chết mẹ mày đi");
+                    }
+
+                }
                 if (!idEmployee.matches("[E][P]\\d{1,2}")) {
                     throw new CheckedException("Input invalid");
                 }
                 break;
+
             } catch (CheckedException e) {
                 System.out.println(e.getMessage());
                 ;
@@ -511,7 +540,7 @@ public class EmployeeService implements IEmployeeService {
             try {
                 wage = Double.parseDouble(sc.nextLine());
                 if (wage < 0 || wage > 1000000000) {
-                    throw new CheckedException("Giá tiền phải > 0 & <100");
+                    throw new CheckedException("Giá tiền phải > 0 & <10000000000000");
                 }
                 break;
             } catch (NumberFormatException e) {
@@ -520,7 +549,7 @@ public class EmployeeService implements IEmployeeService {
                 System.out.println(e.getMessage());
             }
         } while (true);
-
+        WriteFileList.writeFile(PATH_EMPLOYEE,convertEmployeeToString(employees));
         return new Employee(idEmployee, name, dayOfBirth, gender, identityCard, phoneNumber, mail, level, location, wage);
     }
 

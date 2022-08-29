@@ -1,10 +1,13 @@
 package case_study.service.impl;
 
 import case_study.model.sub_class.employee_manager.Customer;
-import case_study.model.sub_class.employee_manager.Employee;
 import case_study.service.ICustomerService;
 import case_study.service.exception.CheckedException;
+import case_study.utils.read_file.ReadFile;
+import case_study.utils.write_file.WriteFileList;
+import homeWork.home_work_1.utils.read_write_file.WriteFile;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,9 +15,11 @@ import java.util.Scanner;
 public class CustomerService implements ICustomerService {
     public static Scanner sc = new Scanner(System.in);
     public static List<Customer> customers = new LinkedList<>();
+    private static final String PATH_CUSTOMER = "src\\case_study\\data\\Customer.CSV";
 
     @Override
     public void displayCustomer() {
+        ReadFile.readCustomerList(PATH_CUSTOMER);
         for (Customer customer : customers) {
             System.out.println(customer);
         }
@@ -24,11 +29,26 @@ public class CustomerService implements ICustomerService {
     public void addCustomer() {
         Customer customer = this.infoCustomer();
         customers.add(customer);
+        WriteFileList.writeFile(PATH_CUSTOMER, convertCustomerToString(customers));
 
     }
+    private String convertString(Customer customer){
+        return customer.getIdCustomer()+","+customer.getName()+","+customer.getBirthDay()
+                +","+customer.getGender()+","+customer.getIdentityCard()+
+                ","+customer.getPhoneNumber()+","+customer.getMail()+","
+                +customer.getTypeOfGuest()+","+customer.getAddress();
+    }
 
+    private List<String> convertCustomerToString(List<Customer> customers) {
+        List<String> stringList = new ArrayList<>();
+        for (Customer customer: customers) {
+            stringList.add(convertString(customer));
+        }
+        return stringList;
+    }
     @Override
     public void editCustomer() {
+        ReadFile.readCustomerList(PATH_CUSTOMER);
         Customer customer = this.findCustomer();
         if (customer == null) {
             System.out.println("Không có");
@@ -45,8 +65,8 @@ public class CustomerService implements ICustomerService {
                         try {
                             idUpdate = sc.nextLine();
                             customer.setIdCustomer(idUpdate);
-                            if (!idUpdate.matches("[E][P]\\d{1,2}")) {
-                                throw new CheckedException("Input invalid");
+                            if (!idUpdate.matches("[C][T]\\d{1,2}")) {
+                                throw new CheckedException("Input invalid(vd: CT01)");
                             }
                             break;
                         } catch (CheckedException e) {
@@ -123,7 +143,8 @@ public class CustomerService implements ICustomerService {
                         try {System.out.println("bạn muốn thay đổi sđt thành:(10 hoặc 11 số  ");
                             System.out.println("và số bắt đầu là 0 và kế tiếp là số khác 0)");
                             phoneNumberUpdate = sc.nextLine();
-                            if (!phoneNumberUpdate.matches("[0][1-9][0-9]{8}") && !phoneNumberUpdate.matches("[0][1-9][0-9]{11}")) {
+                            if (!phoneNumberUpdate.matches("[0][1-9][0-9]{8}") &&
+                                    !phoneNumberUpdate.matches("[0][1-9][0-9]{11}")) {
                                 throw new CheckedException("Số điện thoại không hợp lệ");
                             }
                             break;
@@ -220,7 +241,7 @@ public class CustomerService implements ICustomerService {
             }
         }
 
-
+        WriteFileList.writeFile(PATH_CUSTOMER,convertCustomerToString(customers));
     }
 
     public Customer findCustomer() {
@@ -243,6 +264,7 @@ public class CustomerService implements ICustomerService {
      * @return
      */
     public Customer infoCustomer() {
+        ReadFile.readCustomerList(PATH_CUSTOMER);
         String idCustomer;
         while (true) {
             System.out.println("Enter id");
@@ -279,16 +301,12 @@ public class CustomerService implements ICustomerService {
         String dayOfBirth;
         do {
             try {
-                System.out.print("Mời bạn nhập ngày sinh: ");
+                System.out.print("Mời bạn nhập ngày sinh (): ");
                 dayOfBirth = sc.nextLine();
-                if (!dayOfBirth.matches("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)" +
-                        "(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)" +
-                        "0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|" +
-                        "[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)" +
-                        "(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$")) {
+                if (!dayOfBirth.matches("\\d+\\d+\\W+\\d+\\d+\\W+\\d+\\d+\\d+\\d")) {
                     throw new CheckedException("Dữ liệu không đúng định dạng");
                 }
-                if (Integer.parseInt(dayOfBirth.substring(1)) > 2022) {
+                if (Integer.parseInt(dayOfBirth.substring(6)) > 2022) {
                     throw new CheckedException("Dữ liệu không đúng định dạng");
                 }
                 break;
@@ -317,7 +335,7 @@ public class CustomerService implements ICustomerService {
             try {
                 System.out.print("Nhập vào chứng minh nhân dân: ");
                 identityCard = sc.nextLine();
-                if (!identityCard.matches("[0-9]{9}")||!identityCard.matches("[0-9]{12}")) {
+                if (!identityCard.matches("[0-9]{9}")&&!identityCard.matches("[0-9]{12}")) {
                     throw new CheckedException("Số chứng minh không hợp lệ");
                 }
                 break;
@@ -413,8 +431,9 @@ public class CustomerService implements ICustomerService {
             }
         }
 
-
+        WriteFile.writeFile(PATH_CUSTOMER,convertCustomerToString(customers));
         return new Customer(idCustomer,name,dayOfBirth,gender,identityCard,phoneNumber,mail,typeOfGuest,address);
+
     }
 
 }
