@@ -10,7 +10,9 @@ import case_study.service.IHouseService;
 import case_study.service.IRoomService;
 import case_study.service.IVillaService;
 import case_study.service.exception.CheckedException;
+import case_study.utils.read_file.ReadFile;
 import homeWork.home_work_1.service.InfoException;
+import homeWork.home_work_1.utils.read_write_file.WriteFile;
 
 import java.util.*;
 
@@ -25,6 +27,7 @@ public class VillaService implements IVillaService {
     List<Villa> villaIntegerMap = new ArrayList<>();
     List<Room> roomIntegerMap = new ArrayList<>();
     List<House> houseIntegerMap = new ArrayList<>();
+    private static final String PATH_VILLA = "src\\case_study\\data\\facility\\Villa.CSV";
     public Villa infoVilla(){
 // public Villa(String serviceCode, String serviceName, double usableArea, double rentalCosts,
 //        int maxNumberOfPeople, String rentStyle, String roomStandard, double swimmingPoolArea, int numberOfFloors)
@@ -36,6 +39,7 @@ public class VillaService implements IVillaService {
                 if (!serviceCode.matches("[E][P]\\d{1,2}")) {
                     throw new CheckedException("Input invalid");
                 }
+                ReadFile.readVillaList(PATH_VILLA);
                 for (Villa villa : villaIntegerMap) {
                     if (villa.getServiceCode().equals(serviceCode)) {
                         throw new InfoException("Id của bạn bị trùng ");
@@ -239,13 +243,26 @@ public class VillaService implements IVillaService {
                 System.out.println(e.getMessage());
             }
         } while (true);
-
+        WriteFile.writeFile(PATH_VILLA,convertEmployeeToString(villaIntegerMap));
         return new Villa(serviceCode, serviceNameVilla,usableArea,rentalCosts,maxNumberOfPeople,
                 rentStyle,roomStandard,swimmingPoolArea,numberOfFloors);
     }
     public void  addVilla(){
         Villa villa = this.infoVilla();
         villaIntegerMap.add(villa);
+        WriteFile.writeFile(PATH_VILLA,convertEmployeeToString(villaIntegerMap));
+    }
+    private String convertString(Villa villa){
+        return villa.getServiceCode()+","+villa.getServiceName()+","+villa.getUsableArea()
+                +","+villa.getRentalCosts()+","+villa.getMaxNumberOfPeople()+
+                ","+villa.getRentStyle()+","+villa.getRoomStandard()+","+villa.getSwimmingPoolArea()+","+villa.getNumberOfFloors();
+    }
 
+    private List<String> convertEmployeeToString(List<Villa> villas) {
+        List<String> stringList = new ArrayList<>();
+        for (Villa villa : villas) {
+            stringList.add(convertString(villa));
+        }
+        return stringList;
     }
 }
