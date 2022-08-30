@@ -25,6 +25,7 @@ public abstract class Facility {
     }
 
     public void setServiceCode(String serviceCode) {
+
         this.serviceCode = serviceCode;
     }
 

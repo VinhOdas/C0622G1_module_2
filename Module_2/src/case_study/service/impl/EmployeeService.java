@@ -315,26 +315,25 @@ public class EmployeeService implements IEmployeeService {
     }
 
     public Employee infoEmployee() {
-        ReadFile.readEmployeeList(PATH_EMPLOYEE);
+        employees = ReadFile.readEmployeeList(PATH_EMPLOYEE);
         String idEmployee;
         while (true) {
             try {
                 System.out.println("Enter id:(vd: EP01)");
                 idEmployee = sc.nextLine();
-                for (int i = 0; i < employees.size(); i++) {
-                    if (employees.get(i).getIdEmployee().equals(idEmployee)) {
-                        System.out.println("mày ngu thì chết mẹ mày đi");
-                    }
-
-                }
                 if (!idEmployee.matches("[E][P]\\d{1,2}")) {
                     throw new CheckedException("Input invalid");
+                }
+                for (Employee employee : employees) {
+                    if (employee.getIdEmployee().equals(idEmployee)) {
+                            throw new CheckedException("hello");
+                    }
                 }
                 break;
 
             } catch (CheckedException e) {
                 System.out.println(e.getMessage());
-                ;
+
             }
         }
         String name;
@@ -482,58 +481,58 @@ public class EmployeeService implements IEmployeeService {
             }
         }
         String location = "";
-        while (true) {
-            try {
-                boolean check = false;
-                System.out.println("Vui lòng chọn một số lựa chọn sau" +
-                        "\n 1. Lễ tân" +
-                        "\n 2. Phục vụ" +
-                        "\n 3. Chuyên viên" +
-                        "\n 4. Giám sát" +
-                        "\n 5. Quản lý" +
-                        "\n 6. Giám đốc" +
-                        "\n 7. Quay lại");
-                int choice = Integer.parseInt(sc.nextLine());
-                switch (choice) {
-                    case 1:
-                        location = "Lễ tân";
-                        check = true;
-                        break;
-                    case 2:
-                        location = "Phục vụ";
-                        check = true;
-                        break;
-                    case 3:
-                        location = "Chuyên viên";
-                        check = true;
-                        break;
-                    case 4:
-                        location = "Giám sát";
-                        check = true;
-                        break;
-                    case 5:
-                        location = "Quản lý";
-                        check = true;
-                        break;
-                    case 6:
-                        location = "Giám đốc";
-                        check = true;
-                        break;
-                    case 7:
-                        infoEmployee();
-                        break;
-                    default:
-                        System.out.println("Chọn đúng vào");
-                        break;
+            while (true) {
+                try {
+                    boolean check = false;
+                    System.out.println("Vui lòng chọn một số lựa chọn sau" +
+                            "\n 1. Lễ tân" +
+                            "\n 2. Phục vụ" +
+                            "\n 3. Chuyên viên" +
+                            "\n 4. Giám sát" +
+                            "\n 5. Quản lý" +
+                            "\n 6. Giám đốc" +
+                            "\n 7. Quay lại");
+                    int choice = Integer.parseInt(sc.nextLine());
+                    switch (choice) {
+                        case 1:
+                            location = "Lễ tân";
+                            check = true;
+                            break;
+                        case 2:
+                            location = "Phục vụ";
+                            check = true;
+                            break;
+                        case 3:
+                            location = "Chuyên viên";
+                            check = true;
+                            break;
+                        case 4:
+                            location = "Giám sát";
+                            check = true;
+                            break;
+                        case 5:
+                            location = "Quản lý";
+                            check = true;
+                            break;
+                        case 6:
+                            location = "Giám đốc";
+                            check = true;
+                            break;
+                        case 7:
+                            infoEmployee();
+                            break;
+                        default:
+                            System.out.println("Chọn đúng vào");
+                            break;
 
+                    }
+                    if (check) {
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
-                if (check) {
-                    break;
-                }
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
             }
-        }
         double wage;
         do {
             System.out.println("Nhập tiền lương");

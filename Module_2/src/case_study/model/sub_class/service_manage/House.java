@@ -14,7 +14,8 @@ public class House extends Facility {
         this.numberOfFloors = numberOfFloors;
     }
 
-    public House(String serviceCode, String serviceName, double usableArea, double rentalCosts, int maxNumberOfPeople, String rentStyle, String roomStandard, int numberOfFloors) {
+    public House(String serviceCode, String serviceName, double usableArea, double rentalCosts,
+                 int maxNumberOfPeople, String rentStyle, String roomStandard, int numberOfFloors) {
         super(serviceCode, serviceName, usableArea, rentalCosts, maxNumberOfPeople, rentStyle);
         this.roomStandard = roomStandard;
         this.numberOfFloors = numberOfFloors;

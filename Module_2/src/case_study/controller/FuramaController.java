@@ -50,6 +50,7 @@ public class FuramaController {
                     break;
                 case 3:
                    facilityController.menuFacility();
+                   break;
                 case 4:
                     bookingController.menuBooking();
                     break;

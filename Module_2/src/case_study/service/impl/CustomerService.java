@@ -1,6 +1,7 @@
 package case_study.service.impl;
 
 import case_study.model.sub_class.employee_manager.Customer;
+import case_study.model.sub_class.employee_manager.Employee;
 import case_study.service.ICustomerService;
 import case_study.service.exception.CheckedException;
 import case_study.utils.read_file.ReadFile;
@@ -269,13 +270,21 @@ public class CustomerService implements ICustomerService {
         while (true) {
             System.out.println("Enter id");
             try {
+                System.out.println("Enter id:(vd: EP01)");
                 idCustomer = sc.nextLine();
-                if(!idCustomer.matches("[C][T]\\d{1,2}")) {
+                if (!idCustomer.matches("[E][P]\\d{1,2}")) {
                     throw new CheckedException("Input invalid");
                 }
+                for (Customer customer : customers) {
+                    if (customer.getIdCustomer().equals(idCustomer)) {
+                        throw new CheckedException("hello");
+                    }
+                }
                 break;
+
             } catch (CheckedException e) {
-                System.out.println(e.getMessage());;
+                System.out.println(e.getMessage());
+
             }
         }
         String name;
