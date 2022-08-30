@@ -11,7 +11,9 @@ import case_study.service.IHouseService;
 import case_study.service.IRoomService;
 import case_study.service.IVillaService;
 import case_study.service.exception.CheckedException;
+import case_study.utils.read_file.ReadFile;
 import homeWork.home_work_1.service.InfoException;
+import homeWork.home_work_1.utils.read_write_file.WriteFile;
 
 import java.util.*;
 
@@ -26,14 +28,28 @@ public class RoomService implements IRoomService {
     List<Villa> villaIntegerMap = new ArrayList<>();
     List<Room> roomIntegerMap = new ArrayList<>();
     List<House> houseIntegerMap = new ArrayList<>();
+    private static final String PATH_ROOM = "src\\case_study\\data\\facility\\Room.CSV";
 
     @Override
     public void  addRoom(){
         Room room = this.infoRoom();
         roomIntegerMap.add(room);
         System.out.println("Thêm thành công");
+        WriteFile.writeFile(PATH_ROOM,convertEmployeeToString(roomIntegerMap));
+    }
+    private String convertString(Room room){
+        return room.getServiceCode()+","+room.getServiceName()+","+room.getUsableArea()
+                +","+room.getRentalCosts()+","+room.getMaxNumberOfPeople()+
+                ","+room.getRentStyle()+","+room.getFreeService();
     }
 
+    private List<String> convertEmployeeToString(List<Room> rooms) {
+        List<String> stringList = new ArrayList<>();
+        for (Room room : rooms) {
+            stringList.add(convertString(room));
+        }
+        return stringList;
+    }
     public Room infoRoom(){
 //        public Room(String serviceCode, String serviceName, double usableArea, double rentalCosts,
 //        int maxNumberOfPeople, String rentStyle, String freeService)
@@ -45,6 +61,7 @@ public class RoomService implements IRoomService {
                 if (!serviceCode.matches("[E][P]\\d{1,2}")) {
                     throw new CheckedException("Input invalid");
                 }
+                ReadFile.readRoomList(PATH_ROOM);
                 for (Room room : roomIntegerMap) {
                     if (room.getServiceCode().equals(serviceCode)) {
                         throw new InfoException("Id của bạn bị trùng ");
@@ -203,6 +220,7 @@ public class RoomService implements IRoomService {
                 e.printStackTrace();
             }
         }
+        WriteFile.writeFile(PATH_ROOM,convertEmployeeToString(roomIntegerMap));
         return new Room(serviceCode,serviceName,usableArea,rentalCosts,maxNumberOfPeople,rentStyle,freeService);
     }
 }

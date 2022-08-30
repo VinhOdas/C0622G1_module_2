@@ -25,6 +25,7 @@ public class FacilityService implements IFacilityService {
     private static final IVillaService villaService = new VillaService();
     private static final IHouseService houseService = new HouseService();
     Map<Facility, Integer> facilityIntegerMap = new LinkedHashMap<>();
+    Map<Facility, Integer> facilityMaintenance = new LinkedHashMap<>();
     List<Villa> villaIntegerMap = new ArrayList<>();
     List<Room > roomIntegerMap = new ArrayList<>();
     List<House > houseIntegerMap = new ArrayList<>();

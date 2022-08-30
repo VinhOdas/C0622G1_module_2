@@ -2,6 +2,7 @@ package case_study.service.impl;
 
 import case_study.controller.FuramaController;
 import case_study.model.father_class.Facility;
+import case_study.model.sub_class.employee_manager.Employee;
 import case_study.model.sub_class.service_manage.House;
 import case_study.model.sub_class.service_manage.Room;
 import case_study.model.sub_class.service_manage.Villa;
@@ -10,7 +11,9 @@ import case_study.service.IHouseService;
 import case_study.service.IRoomService;
 import case_study.service.IVillaService;
 import case_study.service.exception.CheckedException;
+import case_study.utils.read_file.ReadFile;
 import homeWork.home_work_1.service.InfoException;
+import homeWork.home_work_1.utils.read_write_file.WriteFile;
 
 import java.util.*;
 
@@ -25,6 +28,7 @@ public class HouseService implements IHouseService {
     List<Villa> villaIntegerMap = new ArrayList<>();
     List<Room> roomIntegerMap = new ArrayList<>();
     List<House> houseIntegerMap = new ArrayList<>();
+    private static final String PATH_HOUSE = "src\\case_study\\data\\facility\\House.CSV";
     public House infoHouse(){
 //public House(String serviceCode, String serviceName, double usableArea, double rentalCosts,
 //        int maxNumberOfPeople, String rentStyle, String roomStandard, int numberOfFloors)
@@ -36,6 +40,7 @@ public class HouseService implements IHouseService {
                 if (!serviceCode.matches("[E][P]\\d{1,2}")) {
                     throw new CheckedException("Input invalid");
                 }
+                ReadFile.readHouseList(PATH_HOUSE);
                 for (House house : houseIntegerMap) {
                     if (house.getServiceCode().equals(serviceCode)) {
                         throw new InfoException("Id của bạn bị trùng ");
@@ -51,7 +56,7 @@ public class HouseService implements IHouseService {
         }
         String serviceNameHouse;
         do {
-            System.out.println("Nhập tên của dịch vụ");
+            System.out.println("Nhập tên của dịch vụ.");
             try {
                 System.out.print("Mời bạn nhập tên: ");
                 serviceNameHouse = (scanner.nextLine());
@@ -224,12 +229,29 @@ public class HouseService implements IHouseService {
                 System.out.println(e.getMessage());
             }
         } while (true);
-        return new House(serviceCode,serviceNameHouse,usableArea,rentalCosts,maxNumberOfPeople,rentStyle,roomStandard,numberOfFloors);
+        WriteFile.writeFile(PATH_HOUSE,convertEmployeeToString(houseIntegerMap));
+        return new House(serviceCode,serviceNameHouse,usableArea,rentalCosts,
+                maxNumberOfPeople,rentStyle,roomStandard,numberOfFloors);
+    }
+    private String convertString(House house){
+        return house.getServiceCode()+","+house.getServiceName()+","+house.getUsableArea()
+                +","+house.getRentalCosts()+","+house.getMaxNumberOfPeople()+
+                ","+house.getRentStyle()+","+house.getRoomStandard()+","
+                +house.getNumberOfFloors();
+    }
+
+    private List<String> convertEmployeeToString(List<House> houses) {
+        List<String> stringList = new ArrayList<>();
+        for (House house: houses) {
+            stringList.add(convertString(house));
+        }
+        return stringList;
     }
     public void  addHouse(){
         House house = this.infoHouse();
         houseIntegerMap.add(house);
         System.out.println("Thêm thành công");
+        WriteFile.writeFile(PATH_HOUSE,convertEmployeeToString(houseIntegerMap));
     }
 
 }
