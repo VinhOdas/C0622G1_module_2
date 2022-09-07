@@ -5,12 +5,18 @@ import case_study.model.sub_class.employee_manager.Employee;
 import case_study.service.IEmployeeService;
 import case_study.service.exception.CheckedException;
 import case_study.utils.read_file.ReadFile;
+import case_study.utils.write_file.WriteFileEmployee;
 import case_study.utils.write_file.WriteFileList;
 import homeWork.home_work_1.models.Student;
 import homeWork.home_work_1.service.InfoException;
 
 import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,6 +25,9 @@ public class EmployeeService implements IEmployeeService {
     public static Scanner sc = new Scanner(System.in);
     public static List<Employee> employees = new ArrayList<>();
     private static final String PATH_EMPLOYEE = "src\\case_study\\data\\Employee.CSV";
+    private static final String NAME_PERSON = "^\\p{Lu}\\p{Ll}+(\\s\\p{Lu}\\p{Ll}+)*$";
+    private static final String DAY_OF_BIRTH = "(^(((0[1-9]|1[0-9]|2[0-8])[\\/](0[1-9]|1[012]))|((29|30|31)[\\/](0[13578]|1[02]))|((29|30)[\\/](0[4,6,9]|11)))[\\/](19|[2-9][0-9])\\d\\d$)" +
+            "|(^29[\\/]02[\\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)";
     static {
         // idEmployee,name,dayOfBirth,gender,identityCard,phoneNumber,mail,level,location,wage);
         employees.add(new Employee("EP01", "Phạm Quang Vinh", "17/11/1999", "Nam", "123456789",
@@ -27,278 +36,358 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public void displayEmployee() {
-        ReadFile.readEmployeeList(PATH_EMPLOYEE);
+      employees =  ReadFile.readEmployeeList(PATH_EMPLOYEE);
+        if (employees.size() == 0) {
+            System.out.println("List the employee is empty");
+        }
         for (Employee employee : employees) {
-            System.out.println(employee);
+            System.out.println(employee.toString());
         }
     }
 
     @Override
-    public void addEmployee() {
-
+    public void addEmployee() throws IOException {
+        employees = ReadFile.readEmployeeList(PATH_EMPLOYEE);
         Employee employee = this.infoEmployee();
         employees.add(employee);
         System.out.println("Bạn đã thêm nhân viên thành công");
-        WriteFileList.writeFile(PATH_EMPLOYEE,convertEmployeeToString(employees));
-    }
-    private String convertString(Employee employee){
-        return employee.getIdEmployee()+","+employee.getName()+","+employee.getBirthDay()+","+employee.getGender()+","+employee.getIdentityCard()+
-            ","+employee.getPhoneNumber()+","+employee.getMail()+","+employee.getLevel()+","+employee.getLocation()+","+employee.getWage();
+        try {
+            WriteFileEmployee.writeEmployeeFile(PATH_EMPLOYEE,employees);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private List<String> convertEmployeeToString(List<Employee> employees) {
-        List<String> stringList = new ArrayList<>();
-        for (Employee employee: employees) {
-            stringList.add(convertString(employee));
-        }
-        return stringList;
-    }
 
     @Override
-    public void editEmployee() {
-        ReadFile.readEmployeeList(PATH_EMPLOYEE);
+    public void editEmployee() throws IOException {
+        employees = ReadFile.readEmployeeList(PATH_EMPLOYEE);
         Employee employee = this.findEmployee();
+
+        int positionEdit = employees.indexOf(employee);
+
         if (employee == null) {
-            System.out.println("Không có");
+            System.out.println("No have id in list employee");
         } else {
-            System.out.println("Chọn 1 nếu bạn muốn thay đổi"
-
-                    );
-            int choise = Integer.parseInt(sc.nextLine());
-            switch (choise) {
-                case 1:
-                    String idUpdate ;
-                    while (true) {
-                        System.out.println("bạn muốn thay đổi id thành:(vd: EP01) ");
-                        try {
-                            idUpdate = sc.nextLine();
-                            employee.setIdEmployee(idUpdate);
-                            if (!idUpdate.matches("[E][P]\\d{1,2}")) {
-                                throw new CheckedException("Input invalid");
-                            }
-                            break;
-                        } catch (CheckedException e) {
-                            System.out.println(e.getMessage());
-                            ;
-                        }
-
-                    }
-                    do {
-                        String nameUpdate;
-                        try {
-                            System.out.print("bạn muốn thay đổi tên thành: (vd: Phạm Quang Vinh) ");
-                            nameUpdate = (sc.nextLine());
-                            String str;
-                            for (int i = 0; i < nameUpdate.length(); i++) {
-                                str = "";
-                                if ((str + nameUpdate.charAt(i)).matches("\\d+")) {
-                                    throw new CheckedException("Tên bạn nhập ko hợp lệ");
+            int chooseEdit = 0;
+            do {
+                System.out.println("--------------------------");
+                System.out.println("Employee need edit" +
+                        "\n 1. Name of Employee" +
+                        "\n 2. Day of birth of employee" +
+                        "\n 3. Gender of employee" +
+                        "\n 4. Id Card of employee" +
+                        "\n 5. Name of phone employee" +
+                        "\n 6. Email of employee" +
+                        "\n 7. Id of employee" +
+                        "\n 8. Level of employee" +
+                        "\n 9. Location of employee" +
+                        "\n 10. Wage of employee" +
+                        "\n 11. Return menu" +
+                        "\n 12. Exit");
+                try {
+                    chooseEdit = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Input invalid");
+                }
+                switch (chooseEdit) {
+                    case 1:
+                        String nameEmployeeEdit;
+                        do {
+                            System.out.println("Enter name of Employee");
+                            try {
+                                nameEmployeeEdit = sc.nextLine();
+                                if (!nameEmployeeEdit.matches(NAME_PERSON)) {
+                                    throw new CheckedException("Input invalid");
                                 }
-                            }
-
-                            break;
-                        } catch (CheckedException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    } while (true);
-
-                    do {
-                        try {
-                            System.out.println("bạn muốn thay đổi ngày sinh thành:(vd: 17/11/1999) ");
-                            String birthDayUpdate = sc.nextLine();
-
-                            if (!birthDayUpdate.matches("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)" +
-                                    "(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)" +
-                                    "0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|" +
-                                    "[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)" +
-                                    "(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$")) {
-                                throw new CheckedException("Dữ liệu không đúng định dạng");
-                            }
-                            if (Integer.parseInt(birthDayUpdate.substring(6)) > 2016) {
-                                throw new CheckedException("Dữ liệu không đúng định dạng");
-                            }
-                            break;
-                        } catch (CheckedException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    } while (true);
-                    do {
-                        try {
-                            System.out.println("bạn muốn thay đổi giới tính thành:(vd: Nam) ");
-                            String genderUpdate = sc.nextLine();
-                            if (genderUpdate.equals("Nam") && genderUpdate.equals("Nữ")) {
-                                throw new CheckedException("Cho phép nhập giới tính là nam hoặc nữ, không nhập ngoại lệ");
-                            }
-                            break;
-                        } catch (CheckedException e) {
-                            System.out.println("Cho phép nhập giới tính là nam hoặc nữ, không nhập ngoại lệ");
-                            ;
-                        }
-                    } while (true);
-                    while (true) {
-                        try { System.out.println("bạn muốn thay đổi CMND:(9 hoặc 12 số) ");
-                            String identityCardUpdate = sc.nextLine();
-                            if (!identityCardUpdate.matches("[0-9]{9}") && !identityCardUpdate.matches("[0-9]{12}")) {
-                                throw new CheckedException("Số chứng minh không hợp lệ");
-                            }
-                            break;
-                        } catch (CheckedException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                    String phoneNumberUpdate;
-                    while (true) {
-                        try {System.out.println("bạn muốn thay đổi sđt thành:(10 hoặc 11 số  ");
-                            System.out.println("và số bắt đầu là 0 và kế tiếp là số khác 0)");
-                            phoneNumberUpdate = sc.nextLine();
-                            if (!phoneNumberUpdate.matches("[0][1-9][0-9]{8}") && !phoneNumberUpdate.matches("[0][1-9][0-9]{11}")) {
-                                throw new CheckedException("Số điện thoại không hợp lệ");
-                            }
-                            break;
-                        } catch (CheckedException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                    String  mailUpdate;
-                    while (true) {
-                        try {
-                            System.out.println("bạn muốn thay đổi gmail thành");
-                             mailUpdate = sc.nextLine();
-                            mailUpdate = sc.nextLine();
-                            if (!mailUpdate.matches("\\w{6,25}[@]\\w{3,10}[.]\\w{1,10}")) {
-                                throw new CheckedException("Tên email không hợp lệ");
-                            }
-                            break;
-                        } catch (CheckedException e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-                    String levelUpdate ="";
-                    while (true) {
-                        try {
-                            boolean check = false;
-                            System.out.println("bạn muốn thay đổi trình độ học vấn thành" +
-                                    "\n 1. Trung cấp" +
-                                    "\n 2. Cao đẳng" +
-                                    "\n 3. Đại học" +
-                                    "\n 4. sau đại học" +
-                                    "\n 5. Quay lại");
-                            int choice = Integer.parseInt(sc.nextLine());
-                            switch (choice) {
-                                case 1:
-                                    levelUpdate = "Trung cấp";
-                                    check = true;
-                                    break;
-                                case 2:
-                                    levelUpdate = "Cao đẳng";
-                                    check = true;
-                                    break;
-                                case 3:
-                                    levelUpdate = "Đại học";
-                                    check = true;
-                                    break;
-                                case 4:
-                                    levelUpdate = "sau đại học";
-                                    check = true;
-                                    break;
-                                case 5:
-                                    infoEmployee();
-                                    break;
-                                default:
-                                    System.out.println("Chọn đúng vào");
-                                    break;
-
-                            }
-                            if (check) {
                                 break;
+                            } catch (CheckedException e) {
+                                System.out.println(e.getMessage());
                             }
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    String locationUpdate = "";
-                    while (true) {
-                        try {
-                            boolean check = false;
-                            System.out.println("bạn muốn thay đổi vị trí công việc thành" +
-                                    "\n 1. Lễ tân" +
-                                    "\n 2. Phục vụ" +
-                                    "\n 3. Chuyên viên" +
-                                    "\n 4. Giám sát" +
-                                    "\n 5. Quản lý" +
-                                    "\n 6. Giám đốc" +
-                                    "\n 7. Quay lại");
-                            int choice = Integer.parseInt(sc.nextLine());
-                            switch (choice) {
-                                case 1:
-                                    locationUpdate = "Lễ tân";
-                                    check = true;
-                                    break;
-                                case 2:
-                                    locationUpdate = "Phục vụ";
-                                    check = true;
-                                    break;
-                                case 3:
-                                    locationUpdate = "Chuyên viên";
-                                    check = true;
-                                    break;
-                                case 4:
-                                    locationUpdate = "Giám sát";
-                                    check = true;
-                                    break;
-                                case 5:
-                                    locationUpdate = "Quản lý";
-                                    check = true;
-                                    break;
-                                case 6:
-                                    locationUpdate = "Giám đốc";
-                                    check = true;
-                                    break;
-                                case 7:
-                                    infoEmployee();
-                                    break;
-                                default:
-                                    System.out.println("Chọn đúng vào");
-                                    break;
-
-                            }
-                            if (check) {
+                        } while (true);
+                        employees.get(positionEdit).setIdEmployee(nameEmployeeEdit);
+                        System.out.println("Success Edit");
+                        break;
+                    case 2:
+                        String dayOfBirthEdit;
+                        do {
+                            System.out.println("Enter day of birth edit to employee");
+                            try {
+                                dayOfBirthEdit = sc.nextLine();
+                                if (Integer.parseInt(dayOfBirthEdit.substring(6)) > 2014) {
+                                    throw new CheckedException("Year old must be >18");
+                                }
+                                if (Integer.parseInt(dayOfBirthEdit.substring(6)) < 1922) {
+                                    throw new CheckedException("Year old mus be <100");
+                                }
+                                if (!dayOfBirthEdit.matches(DAY_OF_BIRTH)) {
+                                    throw new CheckedException("Input invalid");
+                                }
                                 break;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Day of birth must be a number");
+                            } catch (CheckedException | StringIndexOutOfBoundsException e) {
+                                System.out.println("Input invalid and string index of bound");
                             }
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    double wage;
-                    do {
-                        try {
-                            System.out.println("bạn muốn thay đổi tiền lương");
-                            wage = Double.parseDouble(sc.nextLine());
-                            if (wage < 0 || wage > 1000000000) {
-                                throw new CheckedException("Giá tiền phải > 0 & <100");
+                        } while (true);
+                        employees.get(positionEdit).setBirthDay(dayOfBirthEdit);
+                        System.out.println("Success Edit");
+                        break;
+                    case 3:
+                        String genderEdit;
+                        do {
+                            System.out.println("Enter gender of Employees");
+                            try {
+                                genderEdit = sc.nextLine();
+                                if (!genderEdit.equals("male") && !genderEdit.equals("female")) {
+                                    throw new InfoException("Let enter gender is male or female, don't input exception");
+                                }
+                                break;
+                            } catch (InfoException e) {
+                                System.out.println("Let enter gender is male or female, don't input exception");
                             }
-                            break;
-                        } catch (NumberFormatException e) {
-                            System.out.println("Điểm phải là một số");
-                        } catch (CheckedException e) {
-                            System.out.println(e.getMessage());
+                        } while (true);
+                        employees.get(positionEdit).setGender(genderEdit);
+                        System.out.println("Success Edit");
+                        break;
+                    case 4:
+                        String identityCard;
+                        while (true) {
+                            try {
+                                System.out.print("Nhập vào chứng minh nhân dân:(9 hoặc 12 số) ");
+                                identityCard = sc.nextLine();
+
+                                if (!identityCard.matches("[0-9]{9}") && !identityCard.matches("[0-9]{12}")) {
+                                    throw new CheckedException("Số chứng minh không hợp lệ");
+                                }
+                                employees.get(positionEdit).setIdentityCard(identityCard);
+                                System.out.println("Success Edit");
+                                break;
+                            } catch (CheckedException e) {
+                                System.out.println(e.getMessage());
+                            }
                         }
-                    } while (true);
 
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
+                        break;
+                    case 5:
+                        String phoneNumber;
+                        while (true) {
+                            try {
+                                System.out.print("Nhập vào số điện thoại:(10 hoặc 11 số ");
+                                System.out.print("và số bắt đầu là 0 và kế tiếp là số khác 0)" +
+                                        "\n vd: 0799061071 ");
+                                phoneNumber = sc.nextLine();
+                                if (!phoneNumber.matches("[0][1-9][0-9]{8}") && !phoneNumber.matches("[0][1-9][0-9]{11}")) {
+                                    throw new CheckedException("Số điện thoại không hợp lệ");
+                                }
+                                break;
+                            } catch (CheckedException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                        employees.get(positionEdit).setPhoneNumber(phoneNumber);
+                        System.out.println("Success Edit");
+                        break;
+                    case 6:
+                        String mail;
+                        while (true) {
+                            try {
+                                System.out.print("Nhập vào gmail: ");
+                                mail = sc.nextLine();
+                                if (!mail.matches("\\w{6,25}[@]\\w{3,10}[.]\\w{1,10}")) {
+                                    throw new CheckedException("Tên email không hợp lệ");
+                                }
+                                break;
+                            } catch (CheckedException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                        employees.get(positionEdit).setMail(mail);
+                        System.out.println("Success Edit");
+                        break;
+                    case 7:
+                        String level = "";
+                        while (true) {
+                            try {
+                                boolean check = false;
+                                System.out.println("Vui lòng chọn một số lựa chọn sau" +
+                                        "\n 1. Trung cấp" +
+                                        "\n 2. Cao đẳng" +
+                                        "\n 3. Đại học" +
+                                        "\n 4. sau đại học" +
+                                        "\n 5. Quay lại");
+                                int choice = Integer.parseInt(sc.nextLine());
+                                switch (choice) {
+                                    case 1:
+                                        level = "Trung cấp";
+                                        check = true;
+                                        break;
+                                    case 2:
+                                        level = "Cao đẳng";
+                                        check = true;
+                                        break;
+                                    case 3:
+                                        level = "Đại học";
+                                        check = true;
+                                        break;
+                                    case 4:
+                                        level = "sau đại học";
+                                        check = true;
+                                        break;
+                                    case 5:
+                                        infoEmployee();
+                                        break;
+                                    default:
+                                        System.out.println("Chọn đúng vào");
+                                        break;
 
-            }
+                                }
+                                if (check) {
+                                    break;
+                                }
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        employees.get(positionEdit).setIdEmployee(level);
+                        System.out.println("Success Edit");
+                        break;
+                    case 8:
+                        String levelEdit = "";
+                        while (true) {
+                            try {
+                                boolean check = false;
+                                System.out.println("Enter select option to edit" +
+                                        "\n 1. Intermediate" +
+                                        "\n 2. College" +
+                                        "\n 3. University" +
+                                        "\n 4. After university" +
+                                        "\n 5. Return");
+                                int choice = Integer.parseInt(sc.nextLine());
+                                switch (choice) {
+                                    case 1:
+                                        levelEdit = "Intermediate";
+                                        check = true;
+                                        break;
+                                    case 2:
+                                        levelEdit = "College";
+                                        check = true;
+                                        break;
+                                    case 3:
+                                        levelEdit = "University";
+                                        check = true;
+                                        break;
+                                    case 4:
+                                        levelEdit = "After university";
+                                        check = true;
+                                        break;
+                                    case 5:
+                                        infoEmployee();
+                                        break;
+                                    default:
+                                        System.out.println("Your selection is not suitable, selection from 1 to 5");
+                                        break;
+
+                                }
+                                if (check) {
+                                    break;
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Input invalid");
+                            }
+                        }
+                        employees.get(positionEdit).setLevel(levelEdit);
+                        System.out.println("Success Edit");
+                        break;
+                    case 9:
+                        String locationEdit = " ";
+                        while (true) {
+                            try {
+                                boolean check = false;
+                                System.out.println("Enter select option to edit" +
+                                        "\n 1. Receptionist" +
+                                        "\n 2. Service" +
+                                        "\n 3. Expert" +
+                                        "\n 4. Monitoring" +
+                                        "\n 5. Manage" +
+                                        "\n 6. Manager" +
+                                        "\n 7. Return");
+                                int choice = Integer.parseInt(sc.nextLine());
+                                switch (choice) {
+                                    case 1:
+                                        locationEdit = "Receptionist";
+                                        check = true;
+                                        break;
+                                    case 2:
+                                        locationEdit = "Service";
+                                        check = true;
+                                        break;
+                                    case 3:
+                                        locationEdit = "Expert";
+                                        check = true;
+                                        break;
+                                    case 4:
+                                        locationEdit = "Monitoring";
+                                        check = true;
+                                        break;
+                                    case 5:
+                                        locationEdit = "Manage";
+                                        check = true;
+                                        break;
+                                    case 6:
+                                        locationEdit = "Manager";
+                                        check = true;
+                                        break;
+                                    case 7:
+                                        infoEmployee();
+                                        break;
+                                    default:
+                                        System.out.println("Your selection is not suitable, selection from 1 to 7");
+                                        break;
+
+                                }
+                                if (check) {
+                                    break;
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Input invalid");
+                            }
+                        }
+                        employees.get(positionEdit).setLocation(locationEdit);
+                        System.out.println("Success Edit");
+                        break;
+                    case 10:
+                        double wageEdit;
+                        do {
+                            System.out.println("Enter wage of Employees");
+                            try {
+                                wageEdit = Double.parseDouble(sc.nextLine());
+                                if (wageEdit < 0) {
+                                    throw new CheckedException("Id must be >0");
+                                }
+                                break;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Score must be a number");
+                            } catch (CheckedException e) {
+                                System.out.println("Input invalid");
+                            }
+                        } while (true);
+                        employees.get(positionEdit).setWage(wageEdit);
+                        System.out.println("Success Edit");
+                        break;
+                    case 11:
+                        editEmployee();
+                        break;
+                    case 12:
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Your selection is not suitable, selections from 1 to 12");
+                }
+                break;
+            } while (true);
+            WriteFileEmployee.writeEmployeeFile(PATH_EMPLOYEE, employees);
         }
-        WriteFileList.writeFile(PATH_EMPLOYEE,convertEmployeeToString(employees));
-
     }
 
     public Employee findEmployee() {
@@ -314,7 +403,7 @@ public class EmployeeService implements IEmployeeService {
         return null;
     }
 
-    public Employee infoEmployee() {
+    public Employee infoEmployee() throws IOException {
         employees = ReadFile.readEmployeeList(PATH_EMPLOYEE);
         String idEmployee;
         while (true) {
@@ -356,27 +445,25 @@ public class EmployeeService implements IEmployeeService {
             }
         } while (true);
 
+        System.out.println("nhập ngày sinh (dd/MM/yyyy)");
         String dayOfBirth;
-        do {
+        LocalDate dateNow = LocalDate.now();
+        LocalDate date = null;
+        while (true) {
             try {
-                System.out.print("Mời bạn nhập ngày sinh:(vd: 17/11/1999) ");
                 dayOfBirth = sc.nextLine();
-                if (!dayOfBirth.matches("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)" +
-                        "(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)" +
-                        "0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|" +
-                        "[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)" +
-                        "(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$")) {
-                    throw new CheckedException("Dữ liệu không đúng định dạng");
-
+                date = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                Period period = Period.between(date,dateNow);
+                if (dayOfBirth.matches(DAY_OF_BIRTH) && period.getYears() < 100 && period.getYears() > 18) {
+                    break;
+                } else {
+                    throw new InputMismatchException("Nhập sai thời gian hoặc định dạng");
                 }
-                if (Integer.parseInt(dayOfBirth.substring(6)) > 2016) {
-                    throw new CheckedException("Dữ liệu không đúng định dạng");
-                }
-                break;
-            } catch (CheckedException e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
+                //throw new InputMismatchException("không nên nhập ký tự số");
             }
-        } while (true);
+        }
 
         String gender;
         do {
@@ -548,7 +635,7 @@ public class EmployeeService implements IEmployeeService {
                 System.out.println(e.getMessage());
             }
         } while (true);
-        WriteFileList.writeFile(PATH_EMPLOYEE,convertEmployeeToString(employees));
+        WriteFileEmployee.writeEmployeeFile(PATH_EMPLOYEE,employees);
         return new Employee(idEmployee, name, dayOfBirth, gender, identityCard, phoneNumber, mail, level, location, wage);
     }
 

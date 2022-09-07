@@ -1,9 +1,11 @@
 package case_study.service;
 
+import java.io.IOException;
+
 public interface IEmployeeService extends IService {
     void displayEmployee();
 
-    void addEmployee();
+    void addEmployee() throws IOException;
 
-    void editEmployee();
+    void editEmployee() throws IOException;
 }
